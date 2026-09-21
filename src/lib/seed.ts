@@ -19,21 +19,21 @@ export const seed = {
     heroPhoto: p('01', 'The carved timber doorway of Hiranya Guest House seen from the lane in Patan'),
     said: 'An <em>eight-room homestay</em> in a traditional Newari house in old Patan.',
     statementHtml:
-      '<p>The house is about ninety years old. The owner lives on the top floor; the eight guest rooms are on the floors below.</p>' +
-      '<p>Six rooms have a private bathroom and two share one. A café on the ground floor serves breakfast from seven in the morning and stays open until late.</p>' +
+      '<p>The house is about ninety years old. The house was built after the 1934 A.D. earthquake with a very strong structure.</p>' +
+      '<p>Six rooms have a private bathroom and two share one. A café on the ground floor serves breakfast from eight in the morning and stays open till eight in the evening.</p>' +
       '<p><strong>Patan Durbar Square is 650 metres away, about eight minutes on foot.</strong> Tribhuvan airport is 3.4 km, roughly 25 minutes by taxi.</p>',
     hostPhoto: p('08', 'Hands playing a sarangi beside a lattice window', 'Sarangi, third floor'),
     hostBodyHtml:
       '<p>Nakabahil is also called Lokakirti Bihar. The workshops in this courtyard have cast bells and carved wood for generations, and <strong>the large bell in front of the Patan palace was made here.</strong></p>' +
       '<p>There is usually playing on the third floor in the evening, and guests are welcome to listen. Some weeks there is a workshop as well.</p>',
-    cafeName: "Frydays' Soul Food",
-    cafeHours: 'Breakfast from 7am, kitchen open until late',
+    cafeName: "Hiranya Cafe",
+    cafeHours: 'Breakfast from 8am, kitchen open until noon',
     cafeBodyHtml:
       '<p>The café is on the ground floor, off the courtyard. Brick walls, carved wooden posts and about eleven tables.</p>' +
-      '<p>Coffee and breakfast from 7am, then Nepali, Newari and international dishes through lunch and dinner. <strong>Open to non-guests as well as guests.</strong></p>',
+      '<p>Coffee and breakfast from 8am, then we serve homemade momo and fresh juices all day. <strong>Open to non-guests as well as guests.</strong></p>',
     cafePhotos: [
-      p('07', 'The café at Hiranya Guest House with brick walls and carved wooden posts', "Frydays' Soul Food"),
-      p('12', 'Nepali breakfast served on brass plates', 'Breakfast from 7am'),
+      p('07', 'The café at Hiranya Guest House with brick walls and carved wooden posts', "Hiranya Cafe"),
+      p('12', 'Nepali breakfast served on brass plates', 'Breakfast from 8am'),
     ],
     neighbourhoodPhotos: [
       p('11', 'Nakabahil courtyard in Patan with a stone chaitya', 'Nakabahil, Lokakirti Bihar'),
