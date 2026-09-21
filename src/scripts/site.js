@@ -22,7 +22,7 @@ document.addEventListener('click', function(e){
 
 /* marquee */
 (function(){
-  var bits=['<b>हिरण्य</b> hiranya — gold','Nakabahil, Patan','Homestay','Seven rooms','650m to Durbar Square','<b>छेली</b> chheli','<b>मातं</b> mātan','<b>छ्वत</b> chvata','<b>बैगः</b> baiga','<b>कौसी</b> kausi','The bell-makers’ courtyard'];
+  var bits=['<b>हिरण्य</b> hiranya — gold','Nakabahil, Patan','Homestay','Eight rooms','650m to Durbar Square','<b>छेली</b> chheli','<b>मातं</b> mātan','<b>छ्वत</b> chvata','<b>बैगः</b> baiga','<b>कौसी</b> kausi','The bell-makers’ courtyard'];
   var html=bits.map(function(b){return '<span>'+b+'</span>'}).join('');
   var el=document.getElementById('marq'); if(el) el.innerHTML=html+html;
 })();
