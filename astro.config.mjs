@@ -7,6 +7,10 @@ import vercel from '@astrojs/vercel'
 // what Airbnb and Booking.com have already sold.
 export default defineConfig({
   output: 'static',
-  adapter: vercel(),
+  adapter: vercel({
+    webAnalytics: {
+      enabled: true,
+    },
+  }),
   site: 'https://hiranyainpatan.com',
 })
