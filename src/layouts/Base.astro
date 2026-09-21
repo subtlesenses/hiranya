@@ -1,0 +1,29 @@
+---
+import '../styles/global.css'
+interface Props {title: string; description: string}
+const {title, description} = Astro.props
+---
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{title}</title>
+  <meta name="description" content={description} />
+  <meta name="theme-color" content="#0E0A08" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Marcellus&family=Tiro+Devanagari+Sanskrit:ital@0;1&family=IBM+Plex+Mono:wght@400;500&display=swap" />
+  <script is:inline>document.documentElement.classList.add('js')</script>
+</head>
+<body>
+  <slot />
+  <!-- Smooth scroll. Pinned; the page works without it. -->
+  <script is:inline src="https://cdn.jsdelivr.net/npm/lenis@1.3.11/dist/lenis.min.js"></script>
+  <script>
+    // Astro bundles these; they are not served from /src at runtime.
+    import '../scripts/site.js'
+    import '../scripts/availability.js'
+  </script>
+</body>
+</html>

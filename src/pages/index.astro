@@ -1,0 +1,388 @@
+---
+import Base from '../layouts/Base.astro'
+import Photo from '../components/Photo.astro'
+import Whatsapp from '../components/Whatsapp.astro'
+import {getHomeContent} from '../lib/content'
+
+const {settings, storeys, rooms, calendar, quotes, whatsOn} = await getHomeContent()
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'LodgingBusiness',
+      name: settings.name,
+      description: settings.metaDescription ?? settings.strapline,
+      address: {'@type': 'PostalAddress', streetAddress: 'Nakabahil', addressLocality: 'Lalitpur', postalCode: '44600', addressCountry: 'NP'},
+      petsAllowed: true,
+      smokingAllowed: false,
+      numberOfRooms: rooms.length,
+      checkinTime: '13:00',
+      checkoutTime: '12:30',
+      ...(settings.whatsapp ? {telephone: '+' + settings.whatsapp} : {}),
+    },
+    {
+      '@type': 'FAQPage',
+      mainEntity: (settings.goodToKnow ?? []).map((r: any) => ({
+        '@type': 'Question',
+        name: r.label,
+        acceptedAnswer: {'@type': 'Answer', text: r.value},
+      })),
+    },
+  ],
+}
+
+const marquee = [
+  '<b>हिरण्य</b> hiranya — gold',
+  'Nakabahil, Patan',
+  'Homestay',
+  'Seven rooms',
+  '650m to Durbar Square',
+  ...storeys.map((s: any) => `<b>${s.nepali}</b> ${s.roman}`),
+  'The bell-makers’ courtyard',
+]
+---
+<Base title={settings.seoTitle ?? settings.name} description={settings.metaDescription ?? settings.strapline}>
+
+<script type="application/ld+json" set:html={JSON.stringify(jsonLd)} is:inline />
+
+<div id="shutter" aria-hidden="true">{Array.from({length: 10}).map((_, i) => <i style={`animation-delay:${0.05 * (i + 1)}s`}></i>)}</div>
+
+<header id="hdr">
+  <a class="mark" href="#top">Hiranya <small>Nakabahil · Patan</small></a>
+  <nav class="top">
+    {storeys.map((s: any) => <a href={`#${s.label.toLowerCase().replace(/\s+/g, '-')}`}>{s.label}</a>)}
+    <a href="#good-to-know">Good to know</a>
+  </nav>
+  <a class="btn btn-book" href="#book"><span>Book</span></a>
+</header>
+
+<main id="top">
+
+  <!-- ===== hero ===== -->
+  <section class="hero">
+    <div class="hero-media" data-par="0.16">
+      <Photo source={settings.heroPhoto} ratio={16 / 9} width={1900} sizes="100vw" eager={true} />
+    </div>
+    <div class="hero-in wrap">
+      <span class="deva-top fade-up"><span class="deva">हिरण्य</span> <em>hiranya — gold</em></span>
+      <h1><span class="ln"><b>Hiranya</b></span><span class="ln"><b>Guest House</b></span></h1>
+      <p class="sub fade-up">{settings.strapline}</p>
+
+      <form class="avail fade-up" id="avail-form">
+        <div class="fld"><label for="ci">Arrive</label><input id="ci" name="checkIn" type="date" required /></div>
+        <div class="fld"><label for="co">Leave</label><input id="co" name="checkOut" type="date" required /></div>
+        <div class="fld"><label for="gs">Guests</label>
+          <select id="gs" name="guests"><option>1 guest</option><option selected>2 guests</option><option>3 guests</option><option>4 guests</option></select>
+        </div>
+        <button class="btn" type="submit"><span>Check</span></button>
+      </form>
+    </div>
+    <span class="scroll-hint">Scroll</span>
+  </section>
+
+  <div class="marq" aria-hidden="true">
+    <div class="marq-in" set:html={[...marquee, ...marquee].map((b) => `<span>${b}</span>`).join('')} />
+  </div>
+
+  <!-- ===== about ===== -->
+  <section class="sec-pad wrap">
+    <div class="two">
+      <div class="rv">
+        <span class="eyebrow" style="margin-bottom:26px">About the house</span>
+        <h2 class="said" set:html={settings.said} />
+      </div>
+      <div class="body-col rv rv-d1">
+        <div set:html={settings.statementHtml} />
+        <a class="inline-link" href="#rooms">See the rooms</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== what's on: the only weekly-changing thing on the site ===== -->
+  {whatsOn.length > 0 && (
+    <section class="sec-pad wrap" style="padding-top:0">
+      <span class="eyebrow rv" style="margin-bottom:24px">On while you are here</span>
+      <div class="house">
+        {whatsOn.map((e: any) => (
+          <div class="cal-row rv">
+            <span class="mon">{e.startDate}{e.endDate ? ` — ${e.endDate}` : ''}</span>
+            <span class="ev">{e.title}</span>
+            <span class="note">{e.body}{e.time ? ` ${e.time}.` : ''}{e.guestsWelcome ? ' Guests welcome.' : ''}</span>
+          </div>
+        ))}
+      </div>
+    </section>
+  )}
+
+  <div class="lattice-rule" role="presentation"></div>
+
+  <!-- ===== the climb: scroll drives the floor, the image and the marker ===== -->
+  <section class="sec-pad climb" id="arrive">
+    <div class="wrap">
+      <div class="two" style="margin-bottom:clamp(34px,4vw,58px)">
+        <div class="rv">
+          <span class="eyebrow" style="margin-bottom:20px">The plan of the house</span>
+          <h2 data-lines style="font-size:clamp(2rem,4.6vw,3.3rem);line-height:1.04">Four floors<br />and a roof terrace</h2>
+        </div>
+        <div class="body-col rv rv-d1">
+          <p>Traditional Newari houses name each floor after what it was used for: storage at the bottom, sleeping in the middle, a shrine room above that, and the kitchen at the top under the roof.</p>
+          <p>This house still follows the same order. There is no lift, and the stairs are steep.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="wrap climb-grid">
+      <aside class="climb-rail" aria-hidden="true">
+        <div class="rail-line"><i class="rail-mark"></i></div>
+        <ol class="rail-ticks">
+          {[...storeys].reverse().map((s: any, k: number) => (
+            <li data-tick={storeys.length - 1 - k} style={`--t:${k}`}><span class="deva">{s.nepali}</span><small>{s.roman}</small></li>
+          ))}
+        </ol>
+      </aside>
+
+      <div class="climb-media" aria-hidden="true">
+        <div class="stack">
+          {storeys.map((s: any) => <Photo source={s.photo} ratio={4 / 3} width={1100} sizes="(min-width:900px) 45vw, 100vw" class="stack-shot" />)}
+        </div>
+        <div class="stack-cap mono"><span data-cap>{storeys[0]?.photo?.caption ?? ''}</span></div>
+      </div>
+
+      <div class="climb-steps">
+        {storeys.map((s: any, i: number) => (
+          <article class="step" data-step={i} data-cap={s.photo?.caption ?? ''} id={s.label.toLowerCase().replace(/\s+/g, '-')}>
+            <span class="step-num mono">{String(s.order).padStart(2, '0')}</span>
+            <div class="step-nep"><span class="deva">{s.nepali}</span><i>{s.roman}{s.floorName ? ` · ${s.floorName}` : ''}</i></div>
+            <h3>{s.label}</h3>
+            <div class="step-body" set:html={s.bodyHtml} />
+            {s.linkHref && <a class="inline-link" href={s.linkHref}>{s.linkLabel}</a>}
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== rooms ===== -->
+  <section class="sec-pad" id="rooms" style="background:var(--sal-2);border-top:1px solid var(--rule);border-bottom:1px solid var(--rule)">
+    <div class="wrap">
+      <div class="rail-head rv">
+        <div>
+          <span class="eyebrow" style="margin-bottom:18px">मातं · the sleeping floors</span>
+          <h2 data-lines style="font-size:clamp(2rem,4.6vw,3.3rem);line-height:1.04">{rooms.length} rooms</h2>
+          <p style="color:var(--chuna-dim);margin-top:14px;max-width:34ch">Five with a private bathroom, two sharing. All non-smoking, all with free wifi.</p>
+        </div>
+        <div class="rail-nav">
+          <button type="button" id="prev" aria-label="Previous rooms">&#8592;</button>
+          <button type="button" id="next" aria-label="More rooms">&#8594;</button>
+        </div>
+      </div>
+    </div>
+    <div class="wrap">
+      <div class="rail" id="rail">
+        {rooms.map((r: any, i: number) => (
+          <article class="room rv" data-room={r.channelRoomId}>
+            <div class="shot pic">
+              <span class="tag">{String(i + 1).padStart(2, '0')}</span>
+              <Photo source={r.photos?.[0]} ratio={3 / 4} width={800} sizes="(min-width:700px) 340px, 78vw" />
+            </div>
+            <h3>{r.title}</h3>
+            <p>{r.summary}</p>
+            <div class="meta">
+              <span>{r.beds} · sleeps {r.sleeps} · {r.bathroom === 'shared' ? 'shared bath' : 'private bath'}</span>
+              <b data-price hidden></b>
+            </div>
+            <span class="mono" data-state style="font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color:var(--sindoor)"></span>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== the host ===== -->
+  <section class="bleed" id="the-host">
+    <div class="bg" data-par="0.12"><Photo source={settings.hostPhoto} ratio={16 / 9} width={1900} sizes="100vw" /></div>
+    <div class="wrap">
+      <div class="two" style="align-items:end">
+        <div class="rv">
+          <span class="eyebrow" style="margin-bottom:22px">छ्वत · the third floor</span>
+          <h2 data-lines>The house is<br />run by a musician</h2>
+        </div>
+        <div class="body-col rv rv-d1">
+          <div set:html={settings.hostBodyHtml} />
+          <a class="inline-link" href="#book">Ask what is on your dates</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== eat ===== -->
+  <section class="sec-pad wrap" id="eat">
+    <div class="two" style="margin-bottom:clamp(30px,4vw,52px)">
+      <div class="rv">
+        <span class="eyebrow" style="margin-bottom:20px">बैगः · the kitchen floor</span>
+        <h2 data-lines style="font-size:clamp(2rem,4.6vw,3.3rem);line-height:1.04">{settings.cafeName}</h2>
+      </div>
+      <div class="body-col rv rv-d1">
+        <div set:html={settings.cafeBodyHtml} />
+        <p class="mono" style="font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;color:var(--brass)">{settings.cafeHours}</p>
+      </div>
+    </div>
+    <div class="mosaic">
+      {settings.cafePhotos?.[0] && <Photo source={settings.cafePhotos[0]} ratio={3 / 2} width={1400} class="m-a rv" sizes="(min-width:880px) 58vw, 100vw" />}
+      {settings.cafePhotos?.[1] && <Photo source={settings.cafePhotos[1]} ratio={1} width={800} class="m-b rv rv-d1" sizes="(min-width:880px) 40vw, 50vw" />}
+    </div>
+  </section>
+
+  <div class="lattice-rule" role="presentation"></div>
+
+  <!-- ===== patan ===== -->
+  <section class="sec-pad wrap" id="patan">
+    <div class="two" style="margin-bottom:clamp(34px,4vw,58px)">
+      <div class="rv">
+        <span class="eyebrow" style="margin-bottom:20px">नकबहिल · the courtyard outside</span>
+        <h2 data-lines style="font-size:clamp(2rem,4.6vw,3.3rem);line-height:1.04">Staying in Patan</h2>
+      </div>
+      <div class="body-col rv rv-d1">
+        <p>Patan, also called Lalitpur, is the old city across the river from central Kathmandu. It is known for metalwork, wood carving and stone sculpture, and it is quieter than Thamel.</p>
+        <p>From the door: <b>Patan Durbar Square 650 m, the Golden Temple 600 m,</b> Mahabouddha and Kumbeshwar a short walk beyond. Thamel is about 30 minutes by taxi.</p>
+        <p>The house is named after Hiranya Varna Mahavihar, the twelfth-century Golden Temple. <span class="deva">हिरण्य</span> means gold.</p>
+      </div>
+    </div>
+    <div class="mosaic">
+      {settings.neighbourhoodPhotos?.[0] && <Photo source={settings.neighbourhoodPhotos[0]} ratio={3 / 2} width={1400} class="m-a rv" sizes="(min-width:880px) 58vw, 100vw" />}
+      {settings.neighbourhoodPhotos?.[1] && <Photo source={settings.neighbourhoodPhotos[1]} ratio={1} width={800} class="m-b rv rv-d1" sizes="(min-width:880px) 40vw, 50vw" />}
+      {settings.neighbourhoodPhotos?.[2] && <Photo source={settings.neighbourhoodPhotos[2]} ratio={1} width={800} class="m-c rv rv-d1" sizes="(min-width:880px) 40vw, 50vw" />}
+      {settings.neighbourhoodPhotos?.[3] && <Photo source={settings.neighbourhoodPhotos[3]} ratio={3 / 2} width={1400} class="m-d rv rv-d2" sizes="(min-width:880px) 58vw, 100vw" />}
+    </div>
+  </section>
+
+  <!-- ===== good to know: the questions a booker actually has ===== -->
+  <section class="sec-pad wrap" id="good-to-know" style="padding-top:0">
+    <div class="two" style="margin-bottom:clamp(28px,3.5vw,48px)">
+      <div class="rv">
+        <span class="eyebrow" style="margin-bottom:20px">Before you book</span>
+        <h2 data-lines style="font-size:clamp(1.9rem,4.2vw,3rem);line-height:1.05">Good to know</h2>
+      </div>
+      <div class="body-col rv rv-d1">
+        <p>The questions guests ask most often, answered plainly. Anything not covered here, {settings.whatsapp ? <Whatsapp number={settings.whatsapp} variant="inline" label="message the house on WhatsApp" /> : 'send a message'} for a same-day reply.</p>
+      </div>
+    </div>
+    <div class="two" style="gap:0 clamp(34px,5vw,80px)">
+      <dl class="rules rv">
+        {settings.goodToKnow?.slice(0, 5).map((r: any) => (<div><dt>{r.label}</dt><dd>{r.value}</dd></div>))}
+      </dl>
+      <dl class="rules rv rv-d1">
+        {settings.goodToKnow?.slice(5).map((r: any) => (<div><dt>{r.label}</dt><dd>{r.value}</dd></div>))}
+      </dl>
+    </div>
+  </section>
+
+  <!-- ===== guest words ===== -->
+  <section class="sec-pad wrap" style="padding-top:0">
+    <span class="eyebrow rv" style="margin-bottom:26px">What people write afterwards</span>
+    <div class="quotes">
+      {quotes.map((q: any, i: number) => (
+        <div class={`q rv${i ? ` rv-d${i}` : ''}`}>
+          <blockquote>&ldquo;{q.text}&rdquo;</blockquote>
+          <span class="who"><b>{q.name}</b> {q.country}</span>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- ===== when to come ===== -->
+  <section class="sec-pad wrap" style="padding-top:0">
+    <div class="two" style="margin-bottom:clamp(28px,3.5vw,48px)">
+      <div class="rv">
+        <span class="eyebrow" style="margin-bottom:20px">The year in the lane</span>
+        <h2 data-lines style="font-size:clamp(1.9rem,4.2vw,3rem);line-height:1.05">When to come</h2>
+      </div>
+      <div class="body-col rv rv-d1"><p>Patan runs on its own calendar. These are the weeks worth planning around, and the ones worth avoiding if you want the house quiet.</p></div>
+    </div>
+    <div class="cal">
+      {calendar.map((c: any) => (
+        <div class="cal-row rv">
+          <span class="mon">{c.months}</span>
+          <span class="ev">{c.title}</span>
+          <span class="note">{c.note}</span>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- ===== book ===== -->
+  <section class="bleed" id="book" style="min-height:auto;align-items:stretch">
+    <div class="bg" data-par="0.1"><Photo source={storeys[storeys.length - 1]?.photo} ratio={16 / 9} width={1900} sizes="100vw" /></div>
+    <div class="wrap sec-pad" style="position:relative;z-index:2">
+      <div class="two">
+        <div>
+          <span class="eyebrow rv" style="margin-bottom:22px">कौसी · book direct</span>
+          <h2 class="rv" data-lines style="font-size:clamp(2.1rem,5vw,3.6rem);line-height:1.03;margin-bottom:30px">Take a room</h2>
+          <table class="rates rv rv-d1">
+            <thead><tr><th>Room</th><th>Sleeps</th><th>Per night</th></tr></thead>
+            <tbody>
+              {rooms.map((r: any) => (
+                <tr data-room={r.channelRoomId}>
+                  <td>{r.title}</td>
+                  <td>{r.sleeps}</td>
+                  <td><span data-price hidden></span><span data-state></span></td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+          <p class="note-flag rv" style="margin-top:22px">{settings.bookingNote}</p>
+          <div class="cta-row rv rv-d2">
+            <a class="btn" href="#top" style="padding:15px 30px"><span>Check availability</span></a>
+            <Whatsapp number={settings.whatsapp} />
+          </div>
+        </div>
+        <div class="rv rv-d1">
+          <span class="eyebrow" style="margin-bottom:22px">House rules, honestly</span>
+          <dl class="rules">
+            {settings.houseRules?.map((r: any) => (<div><dt>{r.label}</dt><dd>{r.value}</dd></div>))}
+          </dl>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap foot-grid">
+    <div>
+      <h4>{settings.name}</h4>
+      <div class="foot-list">
+        <span>{settings.address}</span>
+        <span>English &amp; Hindi spoken</span>
+        <span><span class="deva">हिरण्य</span> — named for the Golden Temple, 650m north</span>
+      </div>
+    </div>
+    <div>
+      <h4>The house</h4>
+      <div class="foot-list">
+        {storeys.map((s: any) => <a href={`#${s.label.toLowerCase().replace(/\s+/g, '-')}`}>{s.label}</a>)}
+      </div>
+    </div>
+    <div>
+      <h4>Reach us</h4>
+      <div class="foot-list">
+        <a href="#book">Book direct</a>
+        <Whatsapp number={settings.whatsapp} variant="plain" />
+        <span>Free parking · free wifi · pets welcome</span>
+      </div>
+    </div>
+  </div>
+  <div class="wrap colophon">
+    <span>Built 1936 · certified safe after 2015</span>
+    <span class="deva" style="letter-spacing:.06em;text-transform:none">{storeys.map((s: any) => s.nepali).join(' · ')}</span>
+  </div>
+</footer>
+
+<div class="mob-book" id="mob">
+  <a href="#book">Book a room</a>
+  <Whatsapp number={settings.whatsapp} variant="plain" label="WhatsApp" />
+</div>
+
+</Base>

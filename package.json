@@ -1,0 +1,25 @@
+{
+  "name": "hiranya",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "seed:sanity": "tsx scripts/seed-sanity.ts",
+    "beds24:probe": "node scripts/beds24-probe.mjs"
+  },
+  "dependencies": {
+    "@sanity/client": "^6.22.5",
+    "@sanity/image-url": "^1.1.0",
+    "@portabletext/to-html": "^2.0.13",
+    "astro": "^5.0.0",
+    "@astrojs/vercel": "^8.0.0"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "devDependencies": {
+    "tsx": "^4.19.2"
+  }
+}

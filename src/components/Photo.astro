@@ -1,0 +1,39 @@
+---
+/**
+ * Every photograph on the site. Hotspot-aware, lazy by default, and it falls
+ * back to a local placeholder so the site still builds before the photographer
+ * has been booked.
+ */
+import {crop, srcset} from '../lib/sanity'
+
+interface Props {
+  source?: any
+  ratio: number          // width / height, e.g. 3/4 for a room card
+  width?: number
+  sizes?: string
+  eager?: boolean
+  fallback?: string      // /placeholder/04.jpg
+  class?: string
+}
+
+const {source, ratio, width = 1400, sizes = '100vw', eager = false, fallback, class: cls = ''} = Astro.props
+const height = Math.round(width / ratio)
+const src = crop(source, width, height) ?? source?._placeholder ?? fallback
+const set = srcset(source, ratio) ?? undefined
+const alt = source?.alt ?? ''
+const caption = source?.caption
+---
+<figure class={`shot ${cls}`} style="margin:0">
+  <img
+    src={src}
+    srcset={set}
+    sizes={sizes}
+    alt={alt}
+    width={width}
+    height={height}
+    loading={eager ? 'eager' : 'lazy'}
+    decoding={eager ? 'sync' : 'async'}
+    fetchpriority={eager ? 'high' : 'auto'}
+  />
+  {caption && <figcaption>{caption}</figcaption>}
+</figure>

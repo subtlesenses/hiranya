@@ -1,0 +1,111 @@
+/**
+ * What the site shows before Sanity is connected, so `npm run dev` works on a
+ * fresh clone. It is also the content to import into Sanity on day one.
+ *
+ * Copy is deliberately literal. A guest reading this is deciding whether to
+ * hand over money for a bed in a city they have not been to; atmosphere is
+ * worth nothing to them until the practical questions are answered.
+ */
+const p = (n: string, alt: string, caption?: string) => ({_placeholder: `/photos/${n}.jpg`, alt, caption})
+
+export const seed = {
+  settings: {
+    name: 'Hiranya Guest House',
+    seoTitle: 'Hiranya Guest House — Patan, Nepal',
+    metaDescription:
+      'A seven-room homestay in a traditional Newari house in Patan, 650m from Patan Durbar Square. A café in the courtyard and a roof terrace with mountain views.',
+    strapline:
+      "A seven-room homestay in a traditional Newari house in Patan, eight minutes' walk from Durbar Square. A café in the courtyard, and a roof terrace with mountain views.",
+    heroPhoto: p('01', 'The carved timber doorway of Hiranya Guest House seen from the lane in Patan'),
+    said: 'A <em>seven-room homestay</em> in a traditional Newari house in old Patan.',
+    statementHtml:
+      '<p>The house is about ninety years old. The owner lives on the top floor; the seven guest rooms are on the floors below.</p>' +
+      '<p>Five rooms have a private bathroom and two share one. A café on the ground floor serves breakfast from seven in the morning and stays open until late.</p>' +
+      '<p><strong>Patan Durbar Square is 650 metres away, about eight minutes on foot.</strong> Tribhuvan airport is 3.4 km, roughly 25 minutes by taxi.</p>',
+    hostPhoto: p('08', 'Hands playing a sarangi beside a lattice window', 'Sarangi, third floor'),
+    hostBodyHtml:
+      '<p>Nakabahil is also called Lokakirti Bihar. The workshops in this courtyard have cast bells and carved wood for generations, and <strong>the large bell in front of the Patan palace was made here.</strong></p>' +
+      '<p>There is usually playing on the third floor in the evening, and guests are welcome to listen. Some weeks there is a workshop as well.</p>',
+    cafeName: "Frydays' Soul Food",
+    cafeHours: 'Breakfast from 7am, kitchen open until late',
+    cafeBodyHtml:
+      '<p>The café is on the ground floor, off the courtyard. Brick walls, carved wooden posts and about eleven tables.</p>' +
+      '<p>Coffee and breakfast from 7am, then Nepali, Newari and international dishes through lunch and dinner. <strong>Open to non-guests as well as guests.</strong></p>',
+    cafePhotos: [
+      p('07', 'The café at Hiranya Guest House with brick walls and carved wooden posts', "Frydays' Soul Food"),
+      p('12', 'Nepali breakfast served on brass plates', 'Breakfast from 7am'),
+    ],
+    neighbourhoodPhotos: [
+      p('11', 'Nakabahil courtyard in Patan with a stone chaitya', 'Nakabahil, Lokakirti Bihar'),
+      p('10', 'An old bronze temple bell in a Patan courtyard', 'Bell metal'),
+      p('09', 'A carved tikijhya lattice window in a brick wall in Patan', 'तिकिझ्या tikijhya'),
+      p('02', 'The brick courtyard of the guest house seen from the doorway', '650m to Durbar Square'),
+    ],
+    goodToKnow: [
+      {label: 'Getting here', value: 'Tribhuvan airport is 3.4 km, about 25 minutes by taxi. Airport pickup can be arranged on request.'},
+      {label: 'Wifi', value: 'Free throughout the house, around 43 Mbps. It is slower on the top floor.'},
+      {label: 'Bathrooms', value: 'Five rooms have their own. Two share one bathroom between them. Hot showers, towels and toiletries in every room.'},
+      {label: 'Heating', value: 'No central heating, as in most houses in the valley. Extra blankets always, and a room heater on request from November to February.'},
+      {label: 'Stairs', value: 'Four floors and no lift. The staircases are steep and narrow, which is normal in a house of this age.'},
+      {label: 'Breakfast', value: 'Served in the café from 7am. Nepali or continental.'},
+      {label: 'Paying', value: 'Cash in Nepali rupees on arrival. There are ATMs on the way to Durbar Square.'},
+      {label: 'Luggage', value: 'Bags can be left before check-in and after check-out at no charge.'},
+      {label: 'Laundry', value: 'Available on request, charged by the load.'},
+      {label: 'Languages', value: 'English, Nepali, Newari and Hindi.'},
+    ],
+    houseRules: [
+      {label: 'Check in', value: '1pm to 9pm. Please give an arrival time in advance.'},
+      {label: 'Check out', value: 'Between 12pm and 12:30pm.'},
+      {label: 'The gate', value: 'Locked 11pm to 6am. Late arrivals are fine if the house knows beforehand.'},
+      {label: 'Quiet hours', value: '10pm to 6am. Sound carries through the timber floors.'},
+      {label: 'Paying', value: 'Cash on arrival. Photo ID and a card are needed at check-in.'},
+      {label: 'Pets', value: 'Welcome at no charge. Please ask before you book.'},
+      {label: 'Children', value: 'All ages welcome. No cots or extra beds available.'},
+      {label: 'Parties', value: 'Not allowed. Minimum check-in age is 18.'},
+    ],
+    address: 'Nakabahil, Lalitpur 44600, Nepal',
+    // Digits only, country code first. Confirmed by the owner, 11 Sep 2026.
+    whatsapp: '9779841551450',
+    bookingNote: 'Booking direct is cheaper than a booking site and it is the only way to request a specific room.',
+  },
+
+  storeys: [
+    {order: 1, nepali: 'छेली', roman: 'chheli', label: 'Arrive', photo: p('02', 'The brick courtyard of the guest house in early morning light', 'The courtyard'), floorName: 'ground floor', linkLabel: 'Staying in Patan', linkHref: '#patan',
+      bodyHtml: '<p>The entrance is off a narrow lane, through a low door into a brick courtyard that is open to the sky. The café tables are here.</p><p>Free parking in the lane, and covered bicycle parking. <strong>Patan Durbar Square is 650 metres away, about eight minutes on foot.</strong></p>'},
+    {order: 2, nepali: 'मातं', roman: 'mātan', label: 'Rooms', photo: p('04', 'A guest room with original beams and a carved lattice window', 'Double, private bathroom'), floorName: 'first floor', linkLabel: 'See the seven rooms', linkHref: '#rooms',
+      bodyHtml: '<p>Seven rooms across two floors. Original beams overhead, lime-plastered walls and terracotta tile underfoot. Every room has a desk, a shower, towels and toiletries.</p><p>Five rooms have a private bathroom. Two duplex rooms have their own internal stair. <strong>Windows are small and set deep in thick walls,</strong> so the rooms stay cool in summer and dim in the afternoon.</p>'},
+    {order: 3, nepali: 'छ्वत', roman: 'chvata', label: 'The Host', photo: p('08', 'Hands playing a sarangi in a dark room', 'Sarangi, third floor'), floorName: 'second floor', linkLabel: 'More about the house', linkHref: '#the-host',
+      bodyHtml: '<p>Traditionally the shrine floor. Now the owner\'s workroom.</p><p>There is usually music here in the evening, and guests are welcome to come up and listen. <strong>Ask when booking to find out what is on during your dates.</strong></p>'},
+    {order: 4, nepali: 'बैगः', roman: 'baiga', label: 'Eat', photo: p('12', 'Nepali breakfast on brass plates', 'Breakfast from 7am'), floorName: 'attic', linkLabel: 'About the café', linkHref: '#eat',
+      bodyHtml: "<p>In a Newari house the kitchen sits at the top, under the roof. This one still does.</p><p>Guests eat downstairs in the courtyard at <strong>Frydays' Soul Food</strong>. Breakfast from 7am, Nepali, Newari and international dishes until late. Non-guests can walk in.</p>"},
+    {order: 5, nepali: 'कौसी', roman: 'kausi', label: 'The Roof', photo: p('03', 'The roof terrace looking over Patan to the Himalaya', 'Roof terrace'), floorName: 'roof', linkLabel: 'Rates and dates', linkHref: '#book',
+      bodyHtml: '<p>A brick terrace with tables and chairs, open to guests all day. It looks out over the tiled roofs of Patan.</p><p><strong>Between October and February you can usually see the Himalaya from here in the morning.</strong> The rest of the year it is hazy by mid-morning.</p>'},
+  ],
+
+  rooms: [
+    {order: 1, channelRoomId: 'R1', title: 'Duplex Apartment', beds: '1 full bed', sleeps: 2, bathroom: 'private', summary: 'Two floors joined by a steep internal stair. Double bed upstairs, sitting area below.', photos: [p('06', 'Duplex apartment with a narrow timber stair')]},
+    {order: 2, channelRoomId: 'R2', title: 'Duplex Apartment, courtyard', beds: '1 full bed', sleeps: 2, bathroom: 'private', summary: 'The same layout, facing the courtyard through a carved lattice window.', photos: [p('04', 'Duplex apartment facing the courtyard')]},
+    {order: 3, channelRoomId: 'R3', title: 'Standard Twin', beds: '2 twin beds', sleeps: 2, bathroom: 'private', summary: 'Top floor, under the painted roof beams. Two single beds and a deep-set window.', photos: [p('05', 'Twin room under whitewashed roof beams')]},
+    {order: 4, channelRoomId: 'R4', title: 'Double, private bathroom', beds: '1 full bed', sleeps: 2, bathroom: 'private', summary: 'Original beams, lime-plastered walls, terracotta floor. Double bed, desk and wardrobe.', photos: [p('04', 'Double room with private bathroom')]},
+    {order: 5, channelRoomId: 'R5', title: 'Double, private bathroom', beds: '1 full bed', sleeps: 2, bathroom: 'private', summary: 'The same size, on the darker side of the house. The quietest room in the afternoon.', photos: [p('06', 'Second double room with private bathroom')]},
+    {order: 6, channelRoomId: 'R6', title: 'Single, with bathroom', beds: '1 full bed', sleeps: 1, bathroom: 'private', summary: 'A single room with a desk, a chair and its own bathroom. Suits one person.', photos: [p('05', 'Single room with private bathroom')]},
+    {order: 7, channelRoomId: 'R7', title: 'Twin, shared bathroom', beds: '2 twin beds', sleeps: 2, bathroom: 'shared', summary: 'Two single beds. The bathroom is shared with one other room on the same floor.', photos: [p('06', 'Twin room with shared bathroom')]},
+  ],
+
+  calendar: [
+    {months: 'Nov — Feb', title: 'Clearest mountain views', note: 'The clearest views of the year from the roof. Nights are cold and Nepali houses are not centrally heated, so bring warm clothes.'},
+    {months: 'Feb — Mar', title: 'Holi and Shivaratri', note: 'Two of the busiest days in the streets around the house. Expect noise during the day.'},
+    {months: 'Apr — May', title: 'Rato Machhindranath Jatra', note: "Patan's biggest festival and the longest chariot festival in Nepal. A tall wooden chariot is pulled through the streets over several weeks. Rooms fill early."},
+    {months: 'Jun — Aug', title: 'Monsoon', note: 'The low season, and the cheapest time to stay. Rain falls mostly at night. Mountain views are rare.'},
+    {months: 'Aug — Sep', title: 'Krishna Janmashtami', note: 'Krishna Mandir, the stone temple of 1637 on Durbar Square, stays open and lit all night. Ten minutes on foot.'},
+    {months: 'Oct — Nov', title: 'Dashain, Tihar, Kartik Naach', note: "Nepal's main holidays, plus weeks of masked dance in Durbar Square. Busy, and the best weather of the year."},
+  ],
+
+  quotes: [
+    {text: 'Amazing guest house in the middle of Patan. Very cute and traditional Patan house, hidden from the road in a little courtyard with a café on the ground floor.', name: 'Laura', country: 'France'},
+    {text: 'Beautiful old building; great ambiance. Everyone was extremely friendly. Fabulous location in the beautiful historic district of Patan.', name: 'Anahita', country: 'United States'},
+    {text: 'The staff are really nice, new opportunities to meet new people and experience all types of cultures in Nepal. I felt at home and welcomed.', name: 'Supravab', country: 'Nepal'},
+  ],
+
+  whatsOn: [] as any[],
+}
