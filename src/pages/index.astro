@@ -156,7 +156,7 @@ const marquee = [
             <div class="step-nep"><span class="deva">{s.nepali}</span><i>{s.roman}{s.floorName ? ` · ${s.floorName}` : ''}</i></div>
             <h3>{s.label}</h3>
             <div class="step-body" set:html={s.bodyHtml} />
-            {s.linkHref && <a class="inline-link" href={s.linkHref}>{s.linkLabel}</a>}
+            {s.linkHref && s.linkHref !== '#eat' && <a class="inline-link" href={s.linkHref}>{s.linkLabel}</a>}
           </article>
         ))}
       </div>
@@ -215,26 +215,6 @@ const marquee = [
       </div>
     </div>
   </section>
-
-  <!-- ===== eat ===== -->
-  <section class="sec-pad wrap" id="eat">
-    <div class="two" style="margin-bottom:clamp(30px,4vw,52px)">
-      <div class="rv">
-        <span class="eyebrow" style="margin-bottom:20px">बैगः · the kitchen floor</span>
-        <h2 data-lines style="font-size:clamp(2rem,4.6vw,3.3rem);line-height:1.04">{settings.cafeName}</h2>
-      </div>
-      <div class="body-col rv rv-d1">
-        <div set:html={settings.cafeBodyHtml} />
-        <p class="mono" style="font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;color:var(--brass)">{settings.cafeHours}</p>
-      </div>
-    </div>
-    <div class="mosaic">
-      {settings.cafePhotos?.[0] && <Photo source={settings.cafePhotos[0]} ratio={3 / 2} width={1400} class="m-a rv" sizes="(min-width:880px) 58vw, 100vw" />}
-      {settings.cafePhotos?.[1] && <Photo source={settings.cafePhotos[1]} ratio={1} width={800} class="m-b rv rv-d1" sizes="(min-width:880px) 40vw, 50vw" />}
-    </div>
-  </section>
-
-  <div class="lattice-rule" role="presentation"></div>
 
   <!-- ===== patan ===== -->
   <section class="sec-pad wrap" id="patan">
