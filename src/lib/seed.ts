@@ -19,7 +19,7 @@ export const seed = {
     heroPhoto: p('01', 'The carved timber doorway of Hiranya Guest House seen from the lane in Patan'),
     said: 'An <em>eight-room homestay</em> in a traditional Newari house in old Patan.',
     statementHtml:
-      '<p>The house is about ninety years old. The house was built after the 1934 A.D. earthquake with a very strong structure.</p>' +
+      '<p>The house is about ninety years old. It was built after the 1934 A.D. earthquake with a very strong structure.</p>' +
       '<p>Six rooms have a private bathroom and two share one. A café on the ground floor serves breakfast from eight in the morning and stays open till eight in the evening.</p>' +
       '<p><strong>Patan Durbar Square is 650 metres away, about eight minutes on foot.</strong> Tribhuvan airport is 3.4 km, roughly 25 minutes by taxi.</p>',
     hostPhoto: p('08', 'Hands playing a sarangi beside a lattice window', 'Third floor'),
