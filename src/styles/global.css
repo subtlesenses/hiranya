@@ -432,3 +432,8 @@ html.js .rv.has-lines{transform:none}
 .hero-media > .shot,.bleed .bg > .shot,.room .pic > .shot{position:absolute;inset:0;margin:0;background:transparent}
 .hero-media > .shot::after,.room .pic > .shot::after{display:none}   /* hero is revealed by the intro; the room card wipes itself */
 .hero-media > .shot figcaption,.bleed .bg figcaption{display:none}
+
+/* Gentle display correction for the two brightest room photographs.
+   Scoped by image path so other photographs keep their original brightness. */
+img[src="/photos/06.jpg"]{filter:brightness(.86)}
+img[src="/photos/04.jpg"]{filter:brightness(.92)}
