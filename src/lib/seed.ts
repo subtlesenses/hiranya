@@ -86,11 +86,11 @@ export const seed = {
     {order: 1, channelRoomId: 'R1', title: 'Mahalaxmi', beds: '1 full bed', sleeps: 2, bathroom: 'private', summary: 'Two floors joined by a steep internal stair. Double bed upstairs, sitting area below.', photos: [p('06', 'Duplex apartment with a narrow timber stair')]},
     {order: 2, channelRoomId: 'R2', title: 'Mahakali', beds: '1 full bed', sleeps: 2, bathroom: 'private', summary: 'The same layout, facing the courtyard through a carved lattice window.', photos: [p('04', 'Duplex apartment facing the courtyard')]},
     {order: 3, channelRoomId: 'R3', title: 'Brahmayani', beds: '2 twin beds', sleeps: 2, bathroom: 'private', summary: 'Top floor, under the painted roof beams. Two single beds and a deep-set window.', photos: [p('05', 'Twin room under whitewashed roof beams')]},
-    {order: 4, channelRoomId: 'R4', title: 'Indrayani', beds: '1 full bed', sleeps: 2, bathroom: 'private', summary: 'Original beams, lime-plastered walls, terracotta floor. Double bed, desk and wardrobe.', photos: [p('04', 'Double room with private bathroom')]},
-    {order: 5, channelRoomId: 'R5', title: 'Rudrayani', beds: '1 full bed', sleeps: 2, bathroom: 'private', summary: 'The same size, on the darker side of the house. The quietest room in the afternoon.', photos: [p('06', 'Second double room with private bathroom')]},
-    {order: 6, channelRoomId: 'R6', title: 'Vaishnavi', beds: '1 full bed', sleeps: 2, bathroom: 'private', summary: 'Original beams, lime-plastered walls, terracotta floor. Double bed, desk and wardrobe.', photos: [p('05', 'Third room with private bathroom')]},
-    {order: 7, channelRoomId: 'R7', title: 'Kumari', beds: '2 twin beds', sleeps: 2, bathroom: 'shared', summary: 'Two single beds. The bathroom is shared with one other room on the same floor.', photos: [p('06', 'Twin room with shared bathroom')]},
-    {order: 8, channelRoomId: 'R8', title: 'Barahi', beds: '1 single bed', sleeps: 1, bathroom: 'shared', summary: 'A single room with one single bed and a shared bathroom.', photos: []},
+    {order: 4, channelRoomId: 'R4', title: 'Indrayani', beds: '1 full bed', sleeps: 2, bathroom: 'private', summary: 'Original beams, lime-plastered walls, terracotta floor. Double bed, desk and wardrobe.', photos: [p('12', 'Double room with private bathroom')]},
+    {order: 5, channelRoomId: 'R5', title: 'Rudrayani', beds: '1 full bed', sleeps: 2, bathroom: 'private', summary: 'The same size, on the darker side of the house. The quietest room in the afternoon.', photos: [p('13', 'Second double room with private bathroom')]},
+    {order: 6, channelRoomId: 'R6', title: 'Vaishnavi', beds: '1 full bed', sleeps: 2, bathroom: 'private', summary: 'Original beams, lime-plastered walls, terracotta floor. Double bed, desk and wardrobe.', photos: [p('14', 'Third room with private bathroom')]},
+    {order: 7, channelRoomId: 'R7', title: 'Kumari', beds: '2 twin beds', sleeps: 2, bathroom: 'shared', summary: 'Two single beds. The bathroom is shared with one other room on the same floor.', photos: [p('15', 'Twin room with shared bathroom')]},
+    {order: 8, channelRoomId: 'R8', title: 'Barahi', beds: '1 single bed', sleeps: 1, bathroom: 'shared', summary: 'A single room with one single bed and a shared bathroom.', photos: [p('16', 'Twin room with shared bathroom')]},
   ],
 
   calendar: [
