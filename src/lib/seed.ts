@@ -13,14 +13,14 @@ export const seed = {
     name: 'Hiranya Guest House',
     seoTitle: 'Hiranya Guest House — Patan, Nepal',
     metaDescription:
-      'A seven-room homestay in a traditional Newari house in Patan, 650m from Patan Durbar Square. A café in the courtyard and a roof terrace with mountain views.',
+      'An eight-room homestay in a traditional Newari house in Patan, 650m from Patan Durbar Square. A café in the courtyard and a roof terrace with mountain views.',
     strapline:
-      "A seven-room homestay in a traditional Newari house in Patan, eight minutes' walk from Durbar Square. A café in the courtyard, and a roof terrace with mountain views.",
+      "An eight-room homestay in a traditional Newari house in Patan, eight minutes' walk from Durbar Square. A café in the courtyard, and a roof terrace with mountain views.",
     heroPhoto: p('01', 'The carved timber doorway of Hiranya Guest House seen from the lane in Patan'),
-    said: 'A <em>seven-room homestay</em> in a traditional Newari house in old Patan.',
+    said: 'An <em>eight-room homestay</em> in a traditional Newari house in old Patan.',
     statementHtml:
-      '<p>The house is about ninety years old. The owner lives on the top floor; the seven guest rooms are on the floors below.</p>' +
-      '<p>Five rooms have a private bathroom and two share one. A café on the ground floor serves breakfast from seven in the morning and stays open until late.</p>' +
+      '<p>The house is about ninety years old. The owner lives on the top floor; the eight guest rooms are on the floors below.</p>' +
+      '<p>Six rooms have a private bathroom and two share one. A café on the ground floor serves breakfast from seven in the morning and stays open until late.</p>' +
       '<p><strong>Patan Durbar Square is 650 metres away, about eight minutes on foot.</strong> Tribhuvan airport is 3.4 km, roughly 25 minutes by taxi.</p>',
     hostPhoto: p('08', 'Hands playing a sarangi beside a lattice window', 'Sarangi, third floor'),
     hostBodyHtml:
@@ -44,7 +44,7 @@ export const seed = {
     goodToKnow: [
       {label: 'Getting here', value: 'Tribhuvan airport is 3.4 km, about 25 minutes by taxi. Airport pickup can be arranged on request.'},
       {label: 'Wifi', value: 'Free throughout the house, around 43 Mbps. It is slower on the top floor.'},
-      {label: 'Bathrooms', value: 'Five rooms have their own. Two share one bathroom between them. Hot showers, towels and toiletries in every room.'},
+      {label: 'Bathrooms', value: 'Six rooms have their own. Two share one bathroom between them. Hot showers, towels and toiletries in every room.'},
       {label: 'Heating', value: 'No central heating, as in most houses in the valley. Extra blankets always, and a room heater on request from November to February.'},
       {label: 'Stairs', value: 'Four floors and no lift. The staircases are steep and narrow, which is normal in a house of this age.'},
       {label: 'Breakfast', value: 'Served in the café from 7am. Nepali or continental.'},
@@ -72,8 +72,8 @@ export const seed = {
   storeys: [
     {order: 1, nepali: 'छेली', roman: 'chheli', label: 'Arrive', photo: p('02', 'The brick courtyard of the guest house in early morning light', 'The courtyard'), floorName: 'ground floor', linkLabel: 'Staying in Patan', linkHref: '#patan',
       bodyHtml: '<p>The entrance is off a narrow lane, through a low door into a brick courtyard that is open to the sky. The café tables are here.</p><p>Free parking in the lane, and covered bicycle parking. <strong>Patan Durbar Square is 650 metres away, about eight minutes on foot.</strong></p>'},
-    {order: 2, nepali: 'मातं', roman: 'mātan', label: 'Rooms', photo: p('04', 'A guest room with original beams and a carved lattice window', 'Double, private bathroom'), floorName: 'first floor', linkLabel: 'See the seven rooms', linkHref: '#rooms',
-      bodyHtml: '<p>Seven rooms across two floors. Original beams overhead, lime-plastered walls and terracotta tile underfoot. Every room has a desk, a shower, towels and toiletries.</p><p>Five rooms have a private bathroom. Two duplex rooms have their own internal stair. <strong>Windows are small and set deep in thick walls,</strong> so the rooms stay cool in summer and dim in the afternoon.</p>'},
+    {order: 2, nepali: 'मातं', roman: 'mātan', label: 'Rooms', photo: p('04', 'A guest room with original beams and a carved lattice window', 'Double, private bathroom'), floorName: 'first floor', linkLabel: 'See the eight rooms', linkHref: '#rooms',
+      bodyHtml: '<p>Eight rooms across two floors. Original beams overhead, lime-plastered walls and terracotta tile underfoot. Every room has a desk, a shower, towels and toiletries.</p><p>Six rooms have a private bathroom. Two duplex rooms have their own internal stair. <strong>Windows are small and set deep in thick walls,</strong> so the rooms stay cool in summer and dim in the afternoon.</p>'},
     {order: 3, nepali: 'छ्वत', roman: 'chvata', label: 'The Host', photo: p('08', 'Hands playing a sarangi in a dark room', 'Sarangi, third floor'), floorName: 'second floor', linkLabel: 'More about the house', linkHref: '#the-host',
       bodyHtml: '<p>Traditionally the shrine floor. Now the owner\'s workroom.</p><p>There is usually music here in the evening, and guests are welcome to come up and listen. <strong>Ask when booking to find out what is on during your dates.</strong></p>'},
     {order: 4, nepali: 'बैगः', roman: 'baiga', label: 'Eat', photo: p('12', 'Nepali breakfast on brass plates', 'Breakfast from 7am'), floorName: 'attic', linkLabel: 'About the café', linkHref: '#eat',
@@ -90,6 +90,7 @@ export const seed = {
     {order: 5, channelRoomId: 'R5', title: 'Double, private bathroom', beds: '1 full bed', sleeps: 2, bathroom: 'private', summary: 'The same size, on the darker side of the house. The quietest room in the afternoon.', photos: [p('06', 'Second double room with private bathroom')]},
     {order: 6, channelRoomId: 'R6', title: 'Single, with bathroom', beds: '1 full bed', sleeps: 1, bathroom: 'private', summary: 'A single room with a desk, a chair and its own bathroom. Suits one person.', photos: [p('05', 'Single room with private bathroom')]},
     {order: 7, channelRoomId: 'R7', title: 'Twin, shared bathroom', beds: '2 twin beds', sleeps: 2, bathroom: 'shared', summary: 'Two single beds. The bathroom is shared with one other room on the same floor.', photos: [p('06', 'Twin room with shared bathroom')]},
+    {order: 8, channelRoomId: 'R8', title: 'Single, shared bathroom', beds: '1 single bed', sleeps: 1, bathroom: 'shared', summary: 'A single room with one single bed and a shared bathroom.', photos: []},
   ],
 
   calendar: [
