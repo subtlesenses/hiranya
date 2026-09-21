@@ -22,7 +22,7 @@ export const seed = {
       '<p>The house is about ninety years old. The house was built after the 1934 A.D. earthquake with a very strong structure.</p>' +
       '<p>Six rooms have a private bathroom and two share one. A café on the ground floor serves breakfast from eight in the morning and stays open till eight in the evening.</p>' +
       '<p><strong>Patan Durbar Square is 650 metres away, about eight minutes on foot.</strong> Tribhuvan airport is 3.4 km, roughly 25 minutes by taxi.</p>',
-    hostPhoto: p('08', 'Hands playing a sarangi beside a lattice window', 'Sarangi, third floor'),
+    hostPhoto: p('08', 'Hands playing a sarangi beside a lattice window', 'Third floor'),
     hostBodyHtml:
       '<p>Nakabahil is also called Lokakirti Bihar. The workshops in this courtyard have cast bells and carved wood for generations, and <strong>the large bell in front of the Patan palace was made here.</strong></p>' +
       '<p>There is usually playing on the third floor in the evening, and guests are welcome to listen. Some weeks there is a workshop as well.</p>',
