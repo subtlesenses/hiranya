@@ -4,9 +4,8 @@ import {nightsBetween} from '../availability'
 /**
  * Beds24 API v2.
  *
- * Auth is two-stage: a long-lived refresh token that we hold in an env var, and
- * a 24-hour access token we mint from it and keep in memory. Both travel as
- * headers, not as a bearer.
+ * Prefer a read-only long-life BEDS24_API_TOKEN on the server. Existing
+ * refresh-token installations remain supported as a fallback.
  *
  * ─────────────────────────────────────────────────────────────────────────────
  * BEFORE PRODUCTION: the parsing in `normalise()` is written to the published
@@ -17,15 +16,18 @@ import {nightsBetween} from '../availability'
  * ─────────────────────────────────────────────────────────────────────────────
  */
 
-const BASE = 'https://api.beds24.com/v2'
+const BASE = 'https://beds24.com/api/v2'
 
 let cachedToken: {value: string; expires: number} | null = null
 
 async function accessToken(): Promise<string> {
+  const longLife = (process.env.BEDS24_API_TOKEN ?? import.meta.env.BEDS24_API_TOKEN)?.trim()
+  if (longLife) return longLife
+
   if (cachedToken && cachedToken.expires > Date.now() + 60_000) return cachedToken.value
 
-  const refresh = import.meta.env.BEDS24_REFRESH_TOKEN
-  if (!refresh) throw new Error('BEDS24_REFRESH_TOKEN is not set')
+  const refresh = (process.env.BEDS24_REFRESH_TOKEN ?? import.meta.env.BEDS24_REFRESH_TOKEN)?.trim()
+  if (!refresh) throw new Error('Beds24 API credentials are not configured')
 
   const res = await fetch(`${BASE}/authentication/token`, {headers: {refreshToken: refresh}})
   if (!res.ok) throw new Error(`Beds24 auth failed: ${res.status}`)
@@ -73,7 +75,7 @@ export const beds24: AvailabilityProvider = {
     const nights = nightsBetween(checkIn, checkOut)
     if (!nights) return []
     const payload = await get('/inventory/rooms/calendar', {
-      propertyId: import.meta.env.BEDS24_PROPERTY_ID,
+      propertyId: process.env.BEDS24_PROPERTY_ID ?? import.meta.env.BEDS24_PROPERTY_ID,
       startDate: checkIn,
       endDate: checkOut,
       includeNumAvail: 'true',
@@ -84,7 +86,7 @@ export const beds24: AvailabilityProvider = {
 
   async getLeadPrices() {
     const payload = await get('/inventory/rooms/calendar', {
-      propertyId: import.meta.env.BEDS24_PROPERTY_ID,
+      propertyId: process.env.BEDS24_PROPERTY_ID ?? import.meta.env.BEDS24_PROPERTY_ID,
       startDate: isoDaysFromNow(1),
       endDate: isoDaysFromNow(90),
       includeNumAvail: 'true',
