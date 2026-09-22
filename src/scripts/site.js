@@ -1,9 +1,6 @@
 document.documentElement.classList.add('js');
 var REDUCED = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-/* intro shutter cleanup */
-setTimeout(function(){var s=document.getElementById('shutter');if(s)s.classList.add('done');},1700);
-
 /* smooth scroll, native fallback */
 var lenis = null;
 if (window.Lenis && !REDUCED) {

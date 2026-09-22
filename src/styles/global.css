@@ -43,14 +43,6 @@ section{position:relative}
   background-image:repeating-linear-gradient(90deg,var(--rule) 0 1px,transparent 1px 12px);
 }
 
-/* ============ intro shutter ============ */
-#shutter{position:fixed;inset:0;z-index:200;display:grid;grid-template-columns:repeat(10,1fr);pointer-events:none}
-#shutter i{background:var(--sal);display:block;transform-origin:top;border-right:1px solid rgba(214,170,78,.10)}
-html.js #shutter i{animation:slat .95s cubic-bezier(.76,0,.24,1) forwards}
-@keyframes slat{to{transform:scaleY(0)}}
-html:not(.js) #shutter{display:none}
-#shutter.done{display:none}
-
 /* ============ header ============ */
 header{
   position:fixed;top:0;left:0;right:0;z-index:120;
@@ -413,7 +405,6 @@ html.js .rv.has-lines{transform:none}
   html.js .shot::after{transform:scaleY(0)}
   html.js .hero h1 .ln b{transform:none}
   html.js .fade-up{opacity:1;transform:none}
-  #shutter{display:none}
 }
 
 /* astro renders each stack image as a figure; the stack rules target the figure */
@@ -430,7 +421,7 @@ html.js .rv.has-lines{transform:none}
    container the figure must fill it, or it sizes to the photo's own ratio and
    the hero collapses to a strip at phone widths. */
 .hero-media > .shot,.bleed .bg > .shot,.room .pic > .shot{position:absolute;inset:0;margin:0;background:transparent}
-.hero-media > .shot::after,.room .pic > .shot::after{display:none}   /* hero is revealed by the intro; the room card wipes itself */
+.hero-media > .shot::after,.room .pic > .shot::after{display:none}   /* the room card keeps its own wipe effect */
 .hero-media > .shot figcaption,.bleed .bg figcaption{display:none}
 
 /* Gentle display correction for the two brightest room photographs.
