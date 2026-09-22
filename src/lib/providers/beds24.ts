@@ -57,7 +57,7 @@ function normalise(payload: any, nights: number): RoomAvailability[] {
     return {
       channelRoomId: String(row.roomId ?? row.id),
       fromPrice: prices.length ? Math.min(...prices) : null,
-      currency: payload?.currency ?? 'NPR',
+      currency: 'USD', // Property currency confirmed by owner.
       available: nights > 0 && openDays.length >= nights,
       nightsFree: openDays.length,
     }
