@@ -55,7 +55,7 @@ export const seed = {
     ],
     houseRules: [
       {label: 'Check in', value: '1pm to 9pm. Please give an arrival time in advance.'},
-      {label: 'Check out', value: 'Between 12pm and 12:30pm.'},
+      {label: 'Check out', value: 'By 12:30pm'},
       {label: 'The gate', value: 'Locked 11pm to 6am. Late arrivals are fine if the house knows beforehand.'},
       {label: 'Quiet hours', value: '10pm to 6am. Sound carries through the timber floors.'},
       {label: 'Paying', value: 'Cash/Card/QR payment on arrival. Photo ID and a card are needed at check-in.'},
