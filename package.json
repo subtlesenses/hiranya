@@ -6,8 +6,7 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "seed:sanity": "tsx scripts/seed-sanity.ts",
-    "beds24:probe": "node scripts/beds24-probe.mjs"
+    "seed:sanity": "tsx scripts/seed-sanity.ts"
   },
   "dependencies": {
     "@astrojs/vercel": "^8.0.0",

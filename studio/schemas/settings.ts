@@ -128,7 +128,7 @@ export const settings = defineType({
       title: 'Note under the rates',
       type: 'string',
       group: 'practical',
-      description: 'Rates themselves come from Beds24 and cannot be edited here on purpose, so they can never disagree with Airbnb and Booking.com.',
+      description: 'Explain how guests can enquire on WhatsApp. The host confirms availability, rates and terms directly.',
     }),
   ],
   preview: {prepare: () => ({title: 'The house'})},

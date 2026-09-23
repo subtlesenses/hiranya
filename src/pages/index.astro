@@ -3,11 +3,11 @@ import Base from '../layouts/Base.astro'
 import Photo from '../components/Photo.astro'
 import Whatsapp from '../components/Whatsapp.astro'
 import {getHomeContent} from '../lib/content'
-import {bookingUrl, roomIds, roomTypes} from '../lib/booking'
+import {bookingUrl, roomKey, roomTypes} from '../lib/booking'
 
 const {settings, storeys, rooms: contentRooms, calendar, quotes, whatsOn} = await getHomeContent()
 
-const rooms = contentRooms.map((r: any) => ({...r, roomType: r.roomType || roomTypes[r.title], channelRoomId: roomIds[r.title] ?? r.channelRoomId}))
+const rooms = contentRooms.map((r: any) => ({...r, roomType: r.roomType || roomTypes[r.title], roomKey: roomKey(r)}))
 
 const jsonLd = {
   '@context': 'https://schema.org',
@@ -71,7 +71,6 @@ const marquee = [
       <p class="sub fade-up">{settings.strapline}</p>
 
       <form class="avail fade-up" id="avail-form" action="/book/" method="get">
-        <input type="hidden" name="propid" value="355842" /><input type="hidden" name="cur" value="USD" />
         <div class="fld"><label for="ci">Arrive</label><input id="ci" name="checkin" type="date" required /></div>
         <div class="fld"><label for="co">Leave</label><input id="co" name="checkout" type="date" required /></div>
         <div class="fld"><label for="gs">Guests</label>
@@ -183,7 +182,7 @@ const marquee = [
     <div class="wrap">
       <div class="rail" id="rail">
         {rooms.map((r: any, i: number) => (
-          <article class="room rv" data-room={r.channelRoomId}>
+          <article class="room rv" data-room={r.roomKey}>
             <div class="shot pic">
               <span class="tag">{String(i + 1).padStart(2, '0')}</span>
               {r.photos?.[0] ? (
@@ -199,10 +198,8 @@ const marquee = [
             <div class="meta">
               <span>{r.beds.replace('full bed', 'double bed').replace('twin beds', 'single beds')} · {r.sleeps} {r.sleeps === 1 ? 'guest' : 'guests'}</span>
               <span class="bathroom">{r.bathroom === 'shared' ? 'Shared bathroom' : 'Private bathroom'}</span>
-              <b data-price hidden></b>
             </div>
-            <span class="mono" data-state style="font-size:.875rem;color:var(--sindoor)"></span>
-            <a class="inline-link" data-booking href={`${bookingUrl}&roomid=${r.channelRoomId}`}>Enquire about this room</a>
+            <a class="inline-link" data-booking href={`${bookingUrl}?room=${encodeURIComponent(r.roomKey)}`}>Enquire about this room</a>
           </article>
         ))}
       </div>
@@ -313,10 +310,10 @@ const marquee = [
             <thead><tr><th>Room</th><th>Sleeps</th><th>Rates</th></tr></thead>
             <tbody>
               {rooms.map((r: any) => (
-                <tr data-room={r.channelRoomId}>
-                  <td><a data-booking href={`${bookingUrl}&roomid=${r.channelRoomId}`}>{r.title}</a><small>{r.roomType}</small></td>
+                <tr data-room={r.roomKey}>
+                  <td><a data-booking href={`${bookingUrl}?room=${encodeURIComponent(r.roomKey)}`}>{r.title}</a><small>{r.roomType}</small></td>
                   <td>{r.sleeps}</td>
-                  <td><span data-price hidden></span><span data-state>Ask for rates</span></td>
+                  <td><span>Ask for rates</span></td>
                 </tr>
               ))}
             </tbody>

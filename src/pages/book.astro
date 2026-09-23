@@ -2,7 +2,7 @@
 import '../styles/global.css'
 import {getHomeContent} from '../lib/content'
 import Whatsapp from '../components/Whatsapp.astro'
-import {roomIds} from '../lib/booking'
+import {roomKey} from '../lib/booking'
 const {settings, rooms} = await getHomeContent()
 const arrivalRules = (settings.houseRules ?? []).filter((rule: any) => ['Check in', 'Check out'].includes(rule.label))
 const whatsapp = (settings.whatsapp ?? '').replace(/\D/g, '')
@@ -25,7 +25,7 @@ const whatsapp = (settings.whatsapp ?? '').replace(/\D/g, '')
       <div><label for="departure">Leave</label><input id="departure" name="checkout" type="date" required /></div>
       <div><label for="adults">Adults</label><input id="adults" name="numadult" type="number" min="1" max="16" value="2" required /></div>
       <div><label for="children">Children</label><input id="children" name="numchild" type="number" min="0" max="16" value="0" required /></div>
-      <div class="wide"><label for="room">Preferred room</label><select id="room" name="roomid"><option value="">No preference / multiple rooms</option>{rooms.map((r: any) => <option value={roomIds[r.title] ?? r.channelRoomId}>{r.title}</option>)}</select></div>
+      <div class="wide"><label for="room">Preferred room</label><select id="room" name="room"><option value="">No preference / multiple rooms</option>{rooms.map((r: any) => <option value={roomKey(r)}>{r.title}</option>)}</select></div>
       <p class="wide enquiry-note">This is an enquiry, not a confirmed reservation. Review and send the message in WhatsApp; we’ll reply to arrange your booking.</p>
       <button class="btn wide" type="submit"><span>Continue to WhatsApp</span></button>
     </form>}
@@ -58,7 +58,7 @@ const whatsapp = (settings.whatsapp ?? '').replace(/\D/g, '')
         const value = query.get(name)
         if (value && /^\d{1,2}$/.test(value) && Number(value) >= min && Number(value) <= 16) input.value = value
       }
-      if (Array.from(room.options).some(option => option.value === query.get('roomid'))) room.value = query.get('roomid')!
+      if (Array.from(room.options).some(option => option.value === query.get('room'))) room.value = query.get('room')!
       function validateDates() {
         departure.min = arrival.value || arrival.min
         departure.setCustomValidity(arrival.value && departure.value && departure.value <= arrival.value ? 'Choose a departure after arrival.' : '')

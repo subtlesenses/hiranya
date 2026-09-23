@@ -104,7 +104,7 @@ async function main() {
       _id: 'room-' + r.order, _type: 'room',
       title: r.title, slug: {_type: 'slug', current: r.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')},
       order: r.order, summary: r.summary, beds: r.beds, sleeps: r.sleeps, bathroom: r.bathroom,
-      photos: await photos(r.photos), channelRoomId: r.channelRoomId, active: true,
+      photos: await photos(r.photos), active: true,
     })
   }
   seed.calendar.forEach((c, i) => docs.push({_id: 'calendar-' + (i + 1), _type: 'calendarEntry', order: i + 1, ...c}))

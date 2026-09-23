@@ -1,12 +1,6 @@
 import {defineType, defineField} from 'sanity'
 
-/**
- * A named room. Eight in the house.
- *
- * There is deliberately NO price and NO availability field here. Those live in
- * the channel manager, which is the only system that knows what Airbnb and
- * Booking.com have already sold. `channelRoomId` is the thread between the two.
- */
+/** Room content only; rates and availability are confirmed by the host on WhatsApp. */
 export const room = defineType({
   name: 'room',
   title: 'Room',
@@ -67,14 +61,6 @@ export const room = defineType({
       of: [{type: 'photo'}],
       description: 'The first one is the card. Three or four is plenty.',
       validation: (r) => r.required().min(1),
-    }),
-    defineField({
-      name: 'channelRoomId',
-      title: 'Channel manager room ID',
-      type: 'string',
-      description:
-        'The room ID from Beds24. This is how the site knows which prices and free nights belong to this room. Do not change it unless you added the room in Beds24 again.',
-      validation: (r) => r.required(),
     }),
     defineField({
       name: 'active',

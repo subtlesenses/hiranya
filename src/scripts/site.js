@@ -41,7 +41,7 @@ Array.prototype.forEach.call(document.querySelectorAll('[data-lines]'), function
   Array.prototype.forEach.call(els,function(e){io.observe(e)});
 })();
 
-/* availability: sensible default dates */
+/* enquiry: sensible default dates */
 (function(){
   var ci=document.getElementById('ci'), co=document.getElementById('co'); if(!ci||!co) return;
   function iso(d){ return d.toISOString().slice(0,10); }
