@@ -1,5 +1,9 @@
 ---
 import '../styles/global.css'
+import {getHomeContent} from '../lib/content'
+import Whatsapp from '../components/Whatsapp.astro'
+const {settings} = await getHomeContent()
+const arrivalRules = (settings.houseRules ?? []).filter((rule: any) => ['Check in', 'Check out'].includes(rule.label))
 ---
 <!doctype html>
 <html lang="en">
@@ -14,12 +18,18 @@ import '../styles/global.css'
   <main class="wrap booking-main">
     <span class="eyebrow">Stay in old Patan</span><h1>Make yourself at home.</h1>
     <p>Choose your dates and room below. Review your total and booking conditions before confirming.</p>
+    <p id="selected-room" class="selected-room" hidden></p>
+    <dl class="arrival-details">
+      {arrivalRules.map((rule: any) => <div><dt>{rule.label}</dt><dd>{rule.value}</dd></div>)}
+      <div><dt>Before you confirm</dt><dd>Review the total, cancellation terms and payment conditions for your chosen stay.</dd></div>
+    </dl>
     <div class="booking-shell">
       <iframe id="booking-frame" title="Room availability and reservations at Hiranya Guest House" width="100%" height="950" src="https://beds24.com/booking2.php?propid=355842&amp;cur=USD&amp;hideheader=yes&amp;referer=HiranyaWebsite&amp;cssfile=https%3A%2F%2Fwww.hiranyaguesthouse.com%2Fbeds24-theme.css"></iframe>
     </div>
-    <p class="booking-help">Having trouble with the form? <a id="booking-fallback" href="https://beds24.com/booking2.php?propid=355842&amp;cur=USD" target="_blank" rel="noopener">Open booking in a new tab</a> or <a href="https://wa.me/9779841551450">contact us on WhatsApp</a>.</p>
+    <p class="booking-help">Having trouble with the form? <a id="booking-fallback" href="https://beds24.com/booking2.php?propid=355842&amp;cur=USD" target="_blank" rel="noopener">Open booking in a new tab</a> or <Whatsapp number={settings.whatsapp} variant="inline" label="contact us on WhatsApp" />.</p>
   </main>
   <script>
+    import {roomIds} from '../lib/booking'
     const frame = document.querySelector<HTMLIFrameElement>('#booking-frame')!
     const fallback = document.querySelector<HTMLAnchorElement>('#booking-fallback')!
     const query = new URLSearchParams(location.search)
@@ -33,15 +43,25 @@ import '../styles/global.css'
       const value = query.get(name)
       if (value && /^\d{1,3}$/.test(value) && Number(value) <= 365) target.searchParams.set(name, value)
     }
-    const allowedRooms = ['733187','733189','733192','733190','733191','733429','733432','733431']
+    const allowedRooms = Object.values(roomIds)
     const room = query.get('roomid')
-    if (room && allowedRooms.includes(room)) target.searchParams.set('roomid', room)
+    if (room && allowedRooms.includes(room)) {
+      target.searchParams.set('roomid', room)
+      const label = document.getElementById('selected-room')!
+      label.textContent = 'Your selected room: ' + Object.keys(roomIds).find(name => roomIds[name] === room)
+      label.hidden = false
+    }
     frame.src = target.href
     fallback.href = target.href
   </script>
 </body>
 </html>
 <style>
+  .selected-room{margin-top:24px;color:var(--brass)!important}
+  .arrival-details{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px;margin:32px 0;padding:24px 0;border-block:1px solid var(--rule)}
+  .arrival-details dt{font-family:"IBM Plex Mono",monospace;font-size:.875rem;color:var(--brass);margin-bottom:8px}
+  .arrival-details dd{margin:0;font-size:1rem;color:var(--chuna-dim)}
+  @media(max-width:700px){.arrival-details{grid-template-columns:1fr;gap:18px}}
   .booking-nav{display:flex;justify-content:space-between;align-items:center;gap:20px;padding-top:28px;padding-bottom:28px;border-bottom:1px solid var(--rule)}
   .booking-nav>a:last-child,.booking-help{font-size:14px;color:var(--chuna-dim)}
   .booking-main{padding-top:64px;padding-bottom:48px}.booking-main h1{font-size:clamp(2.5rem,6vw,5rem);line-height:1.1;margin:16px 0 24px}

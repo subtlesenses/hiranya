@@ -3,11 +3,11 @@ import Base from '../layouts/Base.astro'
 import Photo from '../components/Photo.astro'
 import Whatsapp from '../components/Whatsapp.astro'
 import {getHomeContent} from '../lib/content'
-import {bookingUrl, roomIds} from '../lib/booking'
+import {bookingUrl, roomIds, roomTypes} from '../lib/booking'
 
 const {settings, storeys, rooms: contentRooms, calendar, quotes, whatsOn} = await getHomeContent()
 
-const rooms = contentRooms.map((r: any) => ({...r, channelRoomId: roomIds[r.title] ?? r.channelRoomId}))
+const rooms = contentRooms.map((r: any) => ({...r, roomType: r.roomType || roomTypes[r.title], channelRoomId: roomIds[r.title] ?? r.channelRoomId}))
 
 const jsonLd = {
   '@context': 'https://schema.org',
@@ -77,7 +77,7 @@ const marquee = [
         <div class="fld"><label for="gs">Guests</label>
           <select id="gs" name="numadult"><option value="1">1 adult</option><option value="2" selected>2 adults</option><option value="3">3 adults</option><option value="4">4 adults</option></select>
         </div>
-        <button class="btn" type="submit"><span>Check</span></button>
+        <button class="btn" type="submit"><span>Check availability</span></button>
       </form>
     </div>
     <span class="scroll-hint">Scroll</span>
@@ -174,31 +174,31 @@ const marquee = [
           <h2 data-lines style="font-size:clamp(2rem,4.6vw,3.3rem);line-height:1.04">{rooms.length} rooms</h2>
           <p style="color:var(--chuna-dim);margin-top:14px;max-width:34ch">Six with a private bathroom, two sharing. All non-smoking, all with free wifi.</p>
         </div>
-        <div class="rail-nav">
-          <button type="button" id="prev" aria-label="Previous rooms">&#8592;</button>
-          <button type="button" id="next" aria-label="More rooms">&#8594;</button>
-        </div>
+        <a class="inline-link" href="#book">Compare rooms &amp; plan your stay</a>
       </div>
     </div>
     <div class="wrap">
-      <div class="rail" id="rail">
+      <div class="room-grid">
         {rooms.map((r: any, i: number) => (
           <article class="room rv" data-room={r.channelRoomId}>
             <div class="shot pic">
               <span class="tag">{String(i + 1).padStart(2, '0')}</span>
               {r.photos?.[0] ? (
-                <Photo source={r.photos[0]} ratio={3 / 4} width={800} sizes="(min-width:700px) 340px, 78vw" />
+                <Photo source={r.photos[0]} ratio={4 / 3} width={800} sizes="(min-width:1000px) 360px, (min-width:700px) 46vw, 90vw" />
               ) : (
                 <div class="mono" style="height:100%;display:grid;place-items:center;color:var(--chuna-dim);font-size:.7rem;letter-spacing:.14em;text-transform:uppercase">Photo coming soon</div>
               )}
             </div>
-            <h3>{r.title}</h3>
+            <div class="room-heading"><h3>{r.title}</h3>
+              {r.roomType && <p class="room-type">{r.roomType}</p>}
+            </div>
             <p>{r.summary}</p>
             <div class="meta">
-              <span>{r.beds} · sleeps {r.sleeps} · {r.bathroom === 'shared' ? 'shared bath' : 'private bath'}</span>
+              <span>{r.beds.replace('full bed', 'double bed').replace('twin beds', 'single beds')} · {r.sleeps} {r.sleeps === 1 ? 'guest' : 'guests'}</span>
+              <span class="bathroom">{r.bathroom === 'shared' ? 'Shared bathroom' : 'Private bathroom'}</span>
               <b data-price hidden></b>
             </div>
-            <span class="mono" data-state style="font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color:var(--sindoor)"></span>
+            <span class="mono" data-state style="font-size:.875rem;color:var(--sindoor)"></span>
             <a class="inline-link" data-booking href={`${bookingUrl}&roomid=${r.channelRoomId}`}>Check dates &amp; book</a>
           </article>
         ))}
@@ -305,20 +305,20 @@ const marquee = [
       <div class="two">
         <div>
           <span class="eyebrow rv" style="margin-bottom:22px">कौसी · book direct</span>
-          <h2 class="rv" data-lines style="font-size:clamp(2.1rem,5vw,3.6rem);line-height:1.03;margin-bottom:30px">Take a room</h2>
+          <h2 class="rv" data-lines style="font-size:clamp(2.1rem,5vw,3.6rem);line-height:1.03;margin-bottom:30px">Your stay in Patan</h2>
           <table class="rates rv rv-d1">
             <thead><tr><th>Room</th><th>Sleeps</th><th>Per night</th></tr></thead>
             <tbody>
               {rooms.map((r: any) => (
                 <tr data-room={r.channelRoomId}>
-                  <td><a data-booking href={`${bookingUrl}&roomid=${r.channelRoomId}`}>{r.title}</a></td>
+                  <td><a data-booking href={`${bookingUrl}&roomid=${r.channelRoomId}`}>{r.title}</a><small>{r.roomType}</small></td>
                   <td>{r.sleeps}</td>
                   <td><span data-price hidden></span><span data-state>Check dates for rates</span></td>
                 </tr>
               ))}
             </tbody>
           </table>
-          <p class="note-flag rv" style="margin-top:22px">Starting rates in USD. Final availability, restrictions, taxes and total price are confirmed on Beds24. Add children on the booking page.</p>
+          <p class="note-flag rv" style="margin-top:22px">Rates are shown in USD when available. Choose your dates to see the total, taxes, payment and cancellation terms before confirming. Add children on the booking page.</p>
           <div class="cta-row rv rv-d2">
             <a class="btn" data-booking href={bookingUrl} style="padding:15px 30px"><span>Check availability</span></a>
             <Whatsapp number={settings.whatsapp} />

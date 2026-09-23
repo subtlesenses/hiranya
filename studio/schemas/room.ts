@@ -1,7 +1,7 @@
 import {defineType, defineField} from 'sanity'
 
 /**
- * A room type. Seven of them.
+ * A named room. Eight in the house.
  *
  * There is deliberately NO price and NO availability field here. Those live in
  * the channel manager, which is the only system that knows what Airbnb and
@@ -19,6 +19,7 @@ export const room = defineType({
       description: 'What you would call it to a guest. e.g. "Duplex apartment, courtyard".',
       validation: (r) => r.required(),
     }),
+    defineField({name: 'roomType', title: 'Room type', type: 'string', description: 'Guest-facing category, such as Duplex apartment or Twin room with shared bathroom.'}),
     defineField({name: 'slug', type: 'slug', options: {source: 'title'}, validation: (r) => r.required()}),
     defineField({
       name: 'order',
