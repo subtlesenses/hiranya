@@ -55,7 +55,7 @@ const marquee = [
     {storeys.map((s: any) => <a href={`#${s.label.toLowerCase().replace(/\s+/g, '-')}`}>{s.label}</a>)}
     <a href="#good-to-know">Good to know</a>
   </nav>
-  <a class="btn btn-book" href="#book"><span>Book</span></a>
+  <a class="btn btn-book" href="#book"><span>Enquire</span></a>
 </header>
 
 <main id="top">
@@ -77,7 +77,7 @@ const marquee = [
         <div class="fld"><label for="gs">Guests</label>
           <select id="gs" name="numadult"><option value="1">1 adult</option><option value="2" selected>2 adults</option><option value="3">3 adults</option><option value="4">4 adults</option></select>
         </div>
-        <button class="btn" type="submit"><span>Check availability</span></button>
+        <button class="btn" type="submit"><span>Enquire on WhatsApp</span></button>
       </form>
     </div>
     <span class="scroll-hint">Scroll</span>
@@ -202,7 +202,7 @@ const marquee = [
               <b data-price hidden></b>
             </div>
             <span class="mono" data-state style="font-size:.875rem;color:var(--sindoor)"></span>
-            <a class="inline-link" data-booking href={`${bookingUrl}&roomid=${r.channelRoomId}`}>Check dates &amp; book</a>
+            <a class="inline-link" data-booking href={`${bookingUrl}&roomid=${r.channelRoomId}`}>Enquire about this room</a>
           </article>
         ))}
       </div>
@@ -307,23 +307,23 @@ const marquee = [
     <div class="wrap sec-pad" style="position:relative;z-index:2">
       <div class="two">
         <div>
-          <span class="eyebrow rv" style="margin-bottom:22px">कौसी · book direct</span>
+          <span class="eyebrow rv" style="margin-bottom:22px">कौसी · enquire direct</span>
           <h2 class="rv" data-lines style="font-size:clamp(2.1rem,5vw,3.6rem);line-height:1.03;margin-bottom:30px">Your stay in Patan</h2>
           <table class="rates rv rv-d1">
-            <thead><tr><th>Room</th><th>Sleeps</th><th>Per night</th></tr></thead>
+            <thead><tr><th>Room</th><th>Sleeps</th><th>Rates</th></tr></thead>
             <tbody>
               {rooms.map((r: any) => (
                 <tr data-room={r.channelRoomId}>
                   <td><a data-booking href={`${bookingUrl}&roomid=${r.channelRoomId}`}>{r.title}</a><small>{r.roomType}</small></td>
                   <td>{r.sleeps}</td>
-                  <td><span data-price hidden></span><span data-state>Check dates for rates</span></td>
+                  <td><span data-price hidden></span><span data-state>Ask for rates</span></td>
                 </tr>
               ))}
             </tbody>
           </table>
-          <p class="note-flag rv" style="margin-top:22px">Rates are shown in USD when available. Choose your dates to see the total, taxes, payment and cancellation terms before confirming. Add children on the booking page.</p>
+          <p class="note-flag rv" style="margin-top:22px">Send your dates and preferred room on WhatsApp. We’ll confirm availability, rates and booking terms with you before your stay is booked.</p>
           <div class="cta-row rv rv-d2">
-            <a class="btn" data-booking href={bookingUrl} style="padding:15px 30px"><span>Check availability</span></a>
+            <a class="btn" data-booking href={bookingUrl} style="padding:15px 30px"><span>Enquire on WhatsApp</span></a>
             <Whatsapp number={settings.whatsapp} />
           </div>
         </div>
@@ -358,7 +358,7 @@ const marquee = [
     <div>
       <h4>Reach us</h4>
       <div class="foot-list">
-        <a href="#book">Book direct</a>
+        <a href="#book">Booking enquiry</a>
         <Whatsapp number={settings.whatsapp} variant="plain" />
         <span>Free parking · free wifi · pets welcome</span>
       </div>
@@ -371,7 +371,7 @@ const marquee = [
 </footer>
 
 <div class="mob-book" id="mob">
-  <a href="#book">Book a room</a>
+  <a href="#book">Enquire about a room</a>
   <Whatsapp number={settings.whatsapp} variant="plain" label="WhatsApp" />
 </div>
 

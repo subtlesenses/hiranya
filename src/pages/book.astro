@@ -2,72 +2,91 @@
 import '../styles/global.css'
 import {getHomeContent} from '../lib/content'
 import Whatsapp from '../components/Whatsapp.astro'
-const {settings} = await getHomeContent()
+import {roomIds} from '../lib/booking'
+const {settings, rooms} = await getHomeContent()
 const arrivalRules = (settings.houseRules ?? []).filter((rule: any) => ['Check in', 'Check out'].includes(rule.label))
+const whatsapp = (settings.whatsapp ?? '').replace(/\D/g, '')
 ---
 <!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Book your stay — Hiranya Guest House</title>
-  <meta name="description" content="Choose your room and book your stay at Hiranya Guest House in Patan." />
+  <title>Booking enquiry — Hiranya Guest House</title>
+  <meta name="description" content="Ask about room availability and rates at Hiranya Guest House in Patan on WhatsApp." />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Marcellus&family=IBM+Plex+Mono&display=swap" />
 </head>
 <body>
   <div class="booking-nav wrap"><a class="mark" href="/">Hiranya <small>Nakabahil · Patan</small></a><a href="/#rooms">Back to the house</a></div>
   <main class="wrap booking-main">
-    <span class="eyebrow">Stay in old Patan</span><h1>Make yourself at home.</h1>
-    <p>Choose your dates and room below. Review your total and booking conditions before confirming.</p>
-    <p id="selected-room" class="selected-room" hidden></p>
+    <span class="eyebrow">Stay in old Patan</span><h1>Let’s plan your stay.</h1>
+    <p>Send us your dates and preferred room on WhatsApp. We’ll confirm availability, rates and booking terms with you.</p>
+    {whatsapp && <form id="enquiry-form" class="enquiry-form" data-whatsapp={whatsapp}>
+      <div><label for="arrival">Arrive</label><input id="arrival" name="checkin" type="date" required /></div>
+      <div><label for="departure">Leave</label><input id="departure" name="checkout" type="date" required /></div>
+      <div><label for="adults">Adults</label><input id="adults" name="numadult" type="number" min="1" max="16" value="2" required /></div>
+      <div><label for="children">Children</label><input id="children" name="numchild" type="number" min="0" max="16" value="0" required /></div>
+      <div class="wide"><label for="room">Preferred room</label><select id="room" name="roomid"><option value="">No preference / multiple rooms</option>{rooms.map((r: any) => <option value={roomIds[r.title] ?? r.channelRoomId}>{r.title}</option>)}</select></div>
+      <p class="wide enquiry-note">This is an enquiry, not a confirmed reservation. Review and send the message in WhatsApp; we’ll reply to arrange your booking.</p>
+      <button class="btn wide" type="submit"><span>Continue to WhatsApp</span></button>
+    </form>}
+    <p class="booking-help">Prefer to message us directly? <Whatsapp number={settings.whatsapp} variant="inline" label="Chat on WhatsApp" /></p>
     <dl class="arrival-details">
       {arrivalRules.map((rule: any) => <div><dt>{rule.label}</dt><dd>{rule.value}</dd></div>)}
-      <div><dt>Before you confirm</dt><dd>Review the total, cancellation terms and payment conditions for your chosen stay.</dd></div>
+      <div><dt>House rules</dt><dd>Smoking and events are prohibited.</dd></div>
     </dl>
-    <div class="booking-shell">
-      <iframe id="booking-frame" title="Room availability and reservations at Hiranya Guest House" width="100%" height="950" src="https://beds24.com/booking2.php?propid=355842&amp;cur=USD&amp;hideheader=yes&amp;referer=HiranyaWebsite&amp;cssfile=https%3A%2F%2Fwww.hiranyaguesthouse.com%2Fbeds24-theme.css"></iframe>
-    </div>
-    <p class="booking-help">Having trouble with the form? <a id="booking-fallback" href="https://beds24.com/booking2.php?propid=355842&amp;cur=USD" target="_blank" rel="noopener">Open booking in a new tab</a> or <Whatsapp number={settings.whatsapp} variant="inline" label="contact us on WhatsApp" />.</p>
   </main>
   <script>
-    import {roomIds} from '../lib/booking'
-    const frame = document.querySelector<HTMLIFrameElement>('#booking-frame')!
-    const fallback = document.querySelector<HTMLAnchorElement>('#booking-fallback')!
-    const query = new URLSearchParams(location.search)
-    const target = new URL(frame.src)
-    const dates = ['checkin', 'checkout']
-    for (const name of dates) {
-      const value = query.get(name)
-      if (value && /^\d{4}-\d{2}-\d{2}$/.test(value)) target.searchParams.set(name, value)
+    const form = document.querySelector<HTMLFormElement>('#enquiry-form')
+    if (form) {
+      const arrival = form.querySelector<HTMLInputElement>('#arrival')!
+      const departure = form.querySelector<HTMLInputElement>('#departure')!
+      const adults = form.querySelector<HTMLInputElement>('#adults')!
+      const children = form.querySelector<HTMLInputElement>('#children')!
+      const room = form.querySelector<HTMLSelectElement>('#room')!
+      const query = new URLSearchParams(location.search)
+      const iso = (date: Date) => `${date.getFullYear()}-${String(date.getMonth()+1).padStart(2,'0')}-${String(date.getDate()).padStart(2,'0')}`
+      const validDate = (value: string | null): value is string => !!value && /^\d{4}-\d{2}-\d{2}$/.test(value) && !isNaN(Date.parse(value)) && new Date(value).toISOString().slice(0,10) === value
+      arrival.min = iso(new Date())
+      const checkin = query.get('checkin'), checkout = query.get('checkout')
+      if (validDate(checkin)) arrival.value = checkin
+      if (validDate(checkout)) departure.value = checkout
+      else if (arrival.value && /^\d{1,3}$/.test(query.get('numnight') ?? '')) {
+        const nights = Number(query.get('numnight'))
+        if (nights > 0 && nights <= 365) departure.value = new Date(Date.parse(arrival.value) + nights * 86400000).toISOString().slice(0,10)
+      }
+      for (const [name, input, min] of [['numadult', adults, 1], ['numchild', children, 0]] as const) {
+        const value = query.get(name)
+        if (value && /^\d{1,2}$/.test(value) && Number(value) >= min && Number(value) <= 16) input.value = value
+      }
+      if (Array.from(room.options).some(option => option.value === query.get('roomid'))) room.value = query.get('roomid')!
+      function validateDates() {
+        departure.min = arrival.value || arrival.min
+        departure.setCustomValidity(arrival.value && departure.value && departure.value <= arrival.value ? 'Choose a departure after arrival.' : '')
+      }
+      form.addEventListener('input', validateDates)
+      form.addEventListener('change', validateDates)
+      validateDates()
+      form.addEventListener('submit', event => {
+        event.preventDefault()
+        validateDates()
+        if (!form.reportValidity()) return
+        const message = ['Hello Hiranya Guest House, I’d like to enquire about a stay.', `Arrival: ${arrival.value}`, `Departure: ${departure.value}`, `Adults: ${adults.value}`, `Children: ${children.value}`, `Preferred room: ${room.selectedOptions[0].text}`, 'Please confirm availability, the total price, and cancellation/payment terms.'].join('\n')
+        location.href = `https://wa.me/${form.dataset.whatsapp}?text=${encodeURIComponent(message)}`
+      })
     }
-    for (const name of ['numnight', 'numadult', 'numchild']) {
-      const value = query.get(name)
-      if (value && /^\d{1,3}$/.test(value) && Number(value) <= 365) target.searchParams.set(name, value)
-    }
-    const allowedRooms = Object.values(roomIds)
-    const room = query.get('roomid')
-    if (room && allowedRooms.includes(room)) {
-      target.searchParams.set('roomid', room)
-      const label = document.getElementById('selected-room')!
-      label.textContent = 'Your selected room: ' + Object.keys(roomIds).find(name => roomIds[name] === room)
-      label.hidden = false
-    }
-    frame.src = target.href
-    fallback.href = target.href
   </script>
 </body>
 </html>
 <style>
-  .selected-room{margin-top:24px;color:var(--brass)!important}
-  .arrival-details{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px;margin:32px 0;padding:24px 0;border-block:1px solid var(--rule)}
-  .arrival-details dt{font-family:"IBM Plex Mono",monospace;font-size:.875rem;color:var(--brass);margin-bottom:8px}
-  .arrival-details dd{margin:0;font-size:1rem;color:var(--chuna-dim)}
-  @media(max-width:700px){.arrival-details{grid-template-columns:1fr;gap:18px}}
-  .booking-nav{display:flex;justify-content:space-between;align-items:center;gap:20px;padding-top:28px;padding-bottom:28px;border-bottom:1px solid var(--rule)}
-  .booking-nav>a:last-child,.booking-help{font-size:14px;color:var(--chuna-dim)}
-  .booking-main{padding-top:64px;padding-bottom:48px}.booking-main h1{font-size:clamp(2.5rem,6vw,5rem);line-height:1.1;margin:16px 0 24px}
+  .booking-nav{display:flex;justify-content:space-between;align-items:center;gap:20px;padding-block:28px;border-bottom:1px solid var(--rule)}
+  .booking-nav>a:last-child,.booking-help{font-size:1rem;color:var(--chuna-dim)}
+  .booking-main{padding-block:64px 48px}.booking-main h1{font-size:clamp(2.5rem,6vw,5rem);line-height:1.1;margin:16px 0 24px}
   .booking-main>p{max-width:65ch;color:var(--chuna-dim)}
-  .booking-shell{margin:36px 0 24px;border:1px solid var(--rule);background:var(--sal-2);border-radius:8px;overflow:hidden}
-  iframe{display:block;border:0;width:100%;height:80vh;min-height:650px;background:var(--sal-2)}
-  .booking-help a{color:var(--brass);text-decoration:underline}
-  @media(max-width:600px){.booking-main{padding-top:32px}.booking-nav .mark small{display:none}.booking-shell{margin-left:-12px;margin-right:-12px}iframe{min-height:650px}}
+  .enquiry-form{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px;max-width:760px;margin:32px 0;padding:28px;background:var(--sal-2);border:1px solid var(--rule)}
+  .enquiry-form label{display:block;font-size:1rem;margin-bottom:8px}.enquiry-form input,.enquiry-form select{width:100%;min-width:0;min-height:48px;background:var(--sal);color:var(--chuna);border:1px solid var(--ash);padding:10px;font:inherit;color-scheme:dark}
+  .wide{grid-column:1/-1}.enquiry-note{font-size:1rem;color:var(--chuna-dim)}.enquiry-form .btn{min-height:48px}
+  .arrival-details{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px;margin:32px 0;padding:24px 0;border-block:1px solid var(--rule)}
+  .arrival-details dt{font-family:"IBM Plex Mono",monospace;font-size:.875rem;color:var(--brass);margin-bottom:8px}.arrival-details dd{margin:0;font-size:1rem;color:var(--chuna-dim)}
+  @media(max-width:700px){.arrival-details{grid-template-columns:1fr}.booking-main{padding-top:32px}.booking-nav .mark small{display:none}.enquiry-form{padding:18px;gap:18px}}
+  @media(max-width:420px){.enquiry-form{grid-template-columns:1fr}}
 </style>
