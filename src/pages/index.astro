@@ -174,17 +174,20 @@ const marquee = [
           <h2 data-lines style="font-size:clamp(2rem,4.6vw,3.3rem);line-height:1.04">{rooms.length} rooms</h2>
           <p style="color:var(--chuna-dim);margin-top:14px;max-width:34ch">Six with a private bathroom, two sharing. All non-smoking, all with free wifi.</p>
         </div>
-        <a class="inline-link" href="#book">Compare rooms &amp; plan your stay</a>
+        <div class="rail-nav">
+          <button type="button" id="prev" aria-label="Previous rooms">&#8592;</button>
+          <button type="button" id="next" aria-label="More rooms">&#8594;</button>
+        </div>
       </div>
     </div>
     <div class="wrap">
-      <div class="room-grid">
+      <div class="rail" id="rail">
         {rooms.map((r: any, i: number) => (
           <article class="room rv" data-room={r.channelRoomId}>
             <div class="shot pic">
               <span class="tag">{String(i + 1).padStart(2, '0')}</span>
               {r.photos?.[0] ? (
-                <Photo source={r.photos[0]} ratio={4 / 3} width={800} sizes="(min-width:1000px) 360px, (min-width:700px) 46vw, 90vw" />
+                <Photo source={r.photos[0]} ratio={3 / 4} width={800} sizes="(min-width:700px) 340px, 78vw" />
               ) : (
                 <div class="mono" style="height:100%;display:grid;place-items:center;color:var(--chuna-dim);font-size:.7rem;letter-spacing:.14em;text-transform:uppercase">Photo coming soon</div>
               )}

@@ -429,21 +429,12 @@ html.js .rv.has-lines{transform:none}
 img[src="/photos/06.jpg"]{filter:brightness(.86)}
 img[src="/photos/04.jpg"]{filter:brightness(.92)}
 
-/* Room and booking refresh: brass, dark timber, and generous photo-led cards. */
+/* Readable room details and booking information. */
 :where(a,button,input,select,summary):focus-visible{outline:2px solid var(--brass);outline-offset:4px}
 .eyebrow{font-size:.875rem;letter-spacing:.13em;color:var(--brass)}
 .btn,.inline-link,nav.top a{font-size:.875rem;letter-spacing:.08em}
 nav.top{gap:18px}
 .mark small{font-size:.75rem;letter-spacing:.08em}
-.room-grid{display:grid;grid-template-columns:minmax(0,1fr);gap:32px;padding-top:36px}
-.room-grid .room{min-width:0;background:var(--sal);border:1px solid var(--rule);padding:16px;gap:16px;cursor:default}
-.room-grid .room .pic{aspect-ratio:4/3}
-.room-grid .room .tag{font-size:.75rem;padding:8px 12px}
-.room-grid .room h3{font-size:1.8rem}
-.room-grid .room .room-type{color:var(--brass);font-size:.875rem;margin-top:8px;line-height:1.5}
-.room-grid .room .meta{display:flex;flex-direction:column;gap:6px;font-size:.875rem;letter-spacing:0;text-transform:none;color:var(--chuna-dim);margin-top:auto}
-.room-grid .room .inline-link{padding:10px 0;min-height:44px}
-.room-grid .bathroom{color:var(--chuna)}
 .rates small{display:block;font-size:.875rem;line-height:1.4;color:var(--chuna-dim);margin-top:5px}
 .rates th{font-size:.875rem;letter-spacing:.03em;color:var(--brass)}
 .rates td:last-child{white-space:normal;font-size:.875rem}
@@ -452,7 +443,9 @@ nav.top{gap:18px}
 #book .two{gap:clamp(28px,5vw,64px)}
 #book .two>div{min-width:0}
 #book .bg::after{background:rgba(14,10,8,.93)}
-@media(min-width:700px){.room-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media(min-width:1100px){.room-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media(max-width:1100px){nav.top{display:none}.btn-book{margin-left:auto}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+
+.room .room-type{color:var(--brass);font-size:.875rem;margin-top:8px;line-height:1.5}
+.room .meta{flex-wrap:wrap;gap:6px 16px;font-size:.875rem;letter-spacing:0;text-transform:none;color:var(--chuna-dim)}
+.room .bathroom{color:var(--chuna)}
