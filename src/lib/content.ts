@@ -12,6 +12,10 @@ export async function getHomeContent() {
 
   try {
     const d: any = await sanityClient()!.fetch(HOME_QUERY)
+    if (!d?.settings) {
+      console.warn('[sanity] No published house settings yet; keeping existing site content.')
+      return {...seed, source: 'seed' as const}
+    }
     return {
       source: 'sanity' as const,
       settings: {
