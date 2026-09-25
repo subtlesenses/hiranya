@@ -52,3 +52,16 @@ photos; it overwrites matching documents and should only be run intentionally.
 Photography updates are pending. Confirm any unverified amenities and commercial
 policies with the owner before changing published content. See `SEO.md` for the
 existing search checklist.
+
+## Room photo galleries
+
+Each room has its own ordered `photos` array. In Sanity Studio, open a Room and
+add images under Photographs, add descriptive alt text, then drag to reorder.
+The first image is the portrait cover; View photos opens only that room's images.
+Publish the room and trigger a Vercel rebuild (or use the Sanity publish webhook).
+Without Sanity configured, add photos to the matching room in `src/lib/seed.ts`
+and place the corresponding files in `public/photos/`. Do not mix rooms or
+add placeholder duplicates to increase the photo count.
+
+The gallery supports touch swiping, arrow buttons/keys, Escape to close, and
+returns keyboard focus to its opener. Full-size images load only on opening.

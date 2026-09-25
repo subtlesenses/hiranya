@@ -1,0 +1,120 @@
+---
+import {galleryImage} from '../lib/sanity'
+interface Props {photos?: any[]; title: string; id: string}
+const {photos = [], title, id} = Astro.props
+const images = photos.map(photo => ({
+  src: galleryImage(photo), alt: photo.alt || `${title} room`, caption: photo.caption,
+})).filter(photo => photo.src)
+---
+{images.length > 0 && (
+  <room-gallery>
+    <button class="gallery-open" type="button" aria-haspopup="dialog" aria-controls={id} aria-label={`View ${images.length} ${images.length === 1 ? 'photo' : 'photos'} of ${title}`} hidden>
+      View {images.length === 1 ? 'photo' : `${images.length} photos`} <span aria-hidden="true">↗</span>
+    </button>
+    <noscript><a href={images[0].src}>View photo ↗</a></noscript>
+    <dialog id={id} aria-labelledby={`${id}-title`} data-lenis-prevent>
+      <header>
+        <h2 id={`${id}-title`}>{title}</h2>
+        <button class="gallery-close" type="button" aria-label="Close room photos" autofocus>Close <span aria-hidden="true">×</span></button>
+      </header>
+      <div class="gallery-track" tabindex="0" role="region" aria-label={`${title} photos. Swipe or use the arrow buttons.`}>
+        {images.map((photo, index) => (
+          <figure class="gallery-slide" role="group" aria-label={`Photo ${index + 1} of ${images.length}`}>
+            <img data-src={photo.src} alt={photo.alt} decoding="async" />
+            {photo.caption && <figcaption>{photo.caption}</figcaption>}
+          </figure>
+        ))}
+      </div>
+      <footer>
+        <button class="gallery-prev" type="button" aria-label="Previous photo" hidden={images.length < 2}>←</button>
+        <span class="gallery-count" aria-live="polite" aria-atomic="true">1 / {images.length}</span>
+        <button class="gallery-next" type="button" aria-label="Next photo" hidden={images.length < 2}>→</button>
+      </footer>
+    </dialog>
+  </room-gallery>
+)}
+
+<script>
+  class RoomGallery extends HTMLElement {
+    connectedCallback() {
+      const dialog = this.querySelector('dialog')!
+      const opener = this.querySelector<HTMLButtonElement>('.gallery-open')!
+      const track = this.querySelector<HTMLElement>('.gallery-track')!
+      const slides = Array.from(this.querySelectorAll<HTMLElement>('.gallery-slide'))
+      const previous = this.querySelector<HTMLButtonElement>('.gallery-prev')!
+      const next = this.querySelector<HTMLButtonElement>('.gallery-next')!
+      const count = this.querySelector('.gallery-count')!
+      let index = 0
+      let priorOverflow = ''
+      const update = () => {
+        index = Math.max(0, Math.min(slides.length - 1, Math.round(track.scrollLeft / (track.clientWidth || 1))))
+        count.textContent = `${index + 1} / ${slides.length}`
+        previous.disabled = index === 0
+        next.disabled = index === slides.length - 1
+      }
+      const move = (direction: number) => {
+        const target = Math.max(0, Math.min(slides.length - 1, index + direction))
+        track.scrollTo({left: target * track.clientWidth, behavior: 'instant'})
+        update()
+      }
+      opener.hidden = false
+      opener.addEventListener('click', () => {
+        priorOverflow = document.documentElement.style.overflow
+        dialog.showModal()
+        document.documentElement.style.overflow = 'hidden'
+        this.querySelectorAll<HTMLImageElement>('img[data-src]').forEach(image => {
+          image.src = image.dataset.src!
+          image.removeAttribute('data-src')
+        })
+        track.scrollLeft = 0
+        update()
+      })
+      this.querySelector('.gallery-close')!.addEventListener('click', () => dialog.close())
+      dialog.addEventListener('close', () => {
+        document.documentElement.style.overflow = priorOverflow
+        opener.focus({preventScroll: true})
+      })
+      dialog.addEventListener('click', event => {
+        if (event.target !== dialog) return
+        const rect = dialog.getBoundingClientRect()
+        if (event.clientX < rect.left || event.clientX > rect.right || event.clientY < rect.top || event.clientY > rect.bottom) dialog.close()
+      })
+      dialog.addEventListener('keydown', event => {
+        if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
+          event.preventDefault()
+          move(event.key === 'ArrowLeft' ? -1 : 1)
+        }
+      })
+      previous.addEventListener('click', () => move(-1))
+      next.addEventListener('click', () => move(1))
+      track.addEventListener('scroll', update, {passive: true})
+      new ResizeObserver(() => {
+        if (dialog.open) track.scrollLeft = index * track.clientWidth
+      }).observe(track)
+    }
+  }
+  if (!customElements.get('room-gallery')) customElements.define('room-gallery', RoomGallery)
+</script>
+
+<style>
+  :host{display:block}
+  .gallery-open{padding:8px 12px;border:1px solid var(--rule);color:var(--brass);font-size:.9rem}
+  .gallery-open span{margin-left:8px}
+  dialog{position:fixed;inset:0;width:min(1060px,calc(100vw - 32px));max-width:none;max-height:calc(100dvh - 32px);margin:auto;padding:0;border:1px solid var(--rule);background:var(--sal);color:var(--chuna);box-shadow:0 20px 80px #0008;cursor:auto}
+  dialog::backdrop{background:rgba(0,0,0,.85)}
+  header,footer{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px 20px}
+  h2{font-size:1.4rem}
+  button{font:inherit;color:var(--chuna);background:transparent;border:1px solid var(--rule);cursor:pointer;min-width:44px;min-height:44px}
+  button[hidden]{display:none}
+  button:disabled{opacity:.3;cursor:default}
+  .gallery-close{padding:4px 12px;flex-shrink:0}
+  .gallery-track{display:flex;overflow-x:auto;overscroll-behavior:contain;scroll-snap-type:x mandatory;scrollbar-width:none;touch-action:pan-x pinch-zoom}
+  .gallery-track::-webkit-scrollbar{display:none}
+  .gallery-track:focus-visible{outline:2px solid var(--brass);outline-offset:-2px}
+  .gallery-slide{flex:0 0 100%;min-width:0;margin:0;scroll-snap-align:start;scroll-snap-stop:always;position:relative}
+  .gallery-slide img{display:block;width:100%;height:min(65dvh,720px);object-fit:contain;transform:none!important;filter:none!important;transition:none!important}
+  figcaption{position:absolute;bottom:10px;left:50%;transform:translateX(-50%);max-width:90%;padding:4px 12px;background:rgba(14,10,8,.85);font-size:.9rem;text-align:center}
+  footer{justify-content:center}
+  .gallery-count{min-width:70px;text-align:center;font-family:"IBM Plex Mono",monospace;font-size:.8rem}
+  @media(max-width:600px){header,footer{padding:10px 12px}h2{font-size:1.2rem}.gallery-slide img{height:60dvh}}
+</style>

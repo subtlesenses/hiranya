@@ -1,6 +1,7 @@
 ---
 import Base from '../layouts/Base.astro'
 import Photo from '../components/Photo.astro'
+import RoomGallery from '../components/RoomGallery.astro'
 import Whatsapp from '../components/Whatsapp.astro'
 import {getHomeContent} from '../lib/content'
 import {bookingUrl, roomKey, roomTypes} from '../lib/booking'
@@ -191,6 +192,7 @@ const marquee = [
                 <div class="mono" style="height:100%;display:grid;place-items:center;color:var(--chuna-dim);font-size:.7rem;letter-spacing:.14em;text-transform:uppercase">Photo coming soon</div>
               )}
             </div>
+            <RoomGallery photos={r.photos} title={r.title} id={`room-gallery-${i}`} />
             <div class="room-heading"><h3>{r.title}</h3>
               {r.roomType && <p class="room-type">{r.roomType}</p>}
             </div>
