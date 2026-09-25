@@ -2,15 +2,11 @@ import {defineConfig} from 'sanity'
 import {structureTool} from 'sanity/structure'
 import {schemaTypes} from './schemas'
 
-if (!process.env.SANITY_STUDIO_PROJECT_ID) {
-  throw new Error('Set SANITY_STUDIO_PROJECT_ID in studio/.env before starting the editor.')
-}
-
 // Put daily room and photo editing first; use Sanity authentication and permissions.
 export default defineConfig({
   name: 'hiranya',
   title: 'Hiranya Guest House',
-  projectId: process.env.SANITY_STUDIO_PROJECT_ID!,
+  projectId: process.env.SANITY_STUDIO_PROJECT_ID || 's7s7kahm',
   dataset: process.env.SANITY_STUDIO_DATASET || 'production',
   plugins: [
     structureTool({
