@@ -13,9 +13,9 @@ export const seed = {
     name: 'Hiranya Guest House',
     seoTitle: 'Hiranya Guest House — Patan, Nepal',
     metaDescription:
-      'An eight-room homestay in a traditional Newari house in Patan, 650m from Patan Durbar Square. A café in the courtyard and a roof terrace with mountain views.',
+      'An eight-room homestay in a traditional Newari house in Patan, 650m from Patan Durbar Square. A courtyard café, with rooftop access exclusively for Mahakali and Mahalaxmi apartment guests.',
     strapline:
-      "An eight-room homestay in a traditional Newari house in Patan, eight minutes' walk from Durbar Square. A café in the courtyard, and a roof terrace with mountain views.",
+      "An eight-room homestay in a traditional Newari house in Patan, eight minutes' walk from Durbar Square. A café in the courtyard. The roof terrace is accessible only to guests staying in Mahakali and Mahalaxmi.",
     heroPhoto: p('01', 'The carved timber doorway of Hiranya Guest House seen from the lane in Patan'),
     said: 'An <em>eight-room homestay</em> in a traditional Newari house in old Patan.',
     statementHtml:
@@ -79,12 +79,12 @@ export const seed = {
     {order: 4, nepali: 'बैगः', roman: 'baiga', label: 'Eat', photo: p('12', 'Nepali breakfast on brass plates', 'Breakfast from 8am'), floorName: 'attic', linkLabel: 'About the café', linkHref: '#eat',
       bodyHtml: "<p>In a Newari house the kitchen sits at the top, under the roof. This one still does.</p><p>Guests eat downstairs in the courtyard at <strong>Hiranya Cafe</strong>. Breakfast from 8am, Nepali, Newari and international dishes until noon. Non-guests can walk in.</p>"},
     {order: 5, nepali: 'कौसी', roman: 'kausi', label: 'The Roof', photo: p('03', 'The roof terrace looking over Patan to the Himalaya', 'Roof terrace'), floorName: 'roof', linkLabel: 'Rates and dates', linkHref: '#book',
-      bodyHtml: '<p>A brick terrace with tables and chairs, open to guests all day. It looks out over the tiled roofs of Patan.</p><p><strong>Between October and February you can usually see the Himalaya from here in the morning.</strong> The rest of the year it is hazy by mid-morning.</p>'},
+      bodyHtml: '<p>A brick terrace with tables and chairs, accessible only to guests staying in the Mahakali and Mahalaxmi apartments. It looks out over the tiled roofs of Patan.</p><p><strong>Between October and February you can usually see the Himalaya from here in the morning.</strong> The rest of the year it is hazy by mid-morning.</p>'},
   ],
 
   rooms: [
-    {order: 1, title: 'Mahalaxmi', beds: '1 full bed', sleeps: 2, bathroom: 'private', summary: 'Two floors joined by a steep internal stair. Double bed upstairs, sitting area below.', photos: [p('06', 'Duplex apartment with a narrow timber stair')]},
-    {order: 2, title: 'Mahakali', beds: '1 full bed', sleeps: 2, bathroom: 'private', summary: 'The same layout, facing the courtyard through a carved lattice window.', photos: [p('04', 'Duplex apartment facing the courtyard')]},
+    {order: 1, title: 'Mahalaxmi', beds: '1 full bed', sleeps: 2, bathroom: 'private', summary: 'Two floors joined by a steep internal stair. Double bed upstairs, sitting area below. Includes rooftop access.', photos: [p('06', 'Duplex apartment with a narrow timber stair')]},
+    {order: 2, title: 'Mahakali', beds: '1 full bed', sleeps: 2, bathroom: 'private', summary: 'The same layout, facing the courtyard through a carved lattice window. Includes rooftop access.', photos: [p('04', 'Duplex apartment facing the courtyard')]},
     {order: 3, title: 'Brahmayani', beds: '2 twin beds', sleeps: 2, bathroom: 'private', summary: 'Second floor, under the painted roof beams. Two single beds and a deep-set window.', photos: [p('05', 'Twin room under whitewashed roof beams')]},
     {order: 4, title: 'Indrayani', beds: '1 full bed', sleeps: 2, bathroom: 'private', summary: 'Original beams, lime-plastered walls, terracotta floor. Double bed, desk and wardrobe.', photos: [p('17', 'Double room with private bathroom')]},
     {order: 5, title: 'Rudrayani', beds: '1 full bed', sleeps: 2, bathroom: 'private', summary: 'The same size, on the darker side of the house. The quietest room in the afternoon.', photos: [p('13', 'Second double room with private bathroom')]},
@@ -94,7 +94,7 @@ export const seed = {
   ],
 
   calendar: [
-    {months: 'Nov — Feb', title: 'Clearest mountain views', note: 'The clearest views of the year from the roof. Nights are cold and Nepali houses are not centrally heated, so bring warm clothes.'},
+    {months: 'Nov — Feb', title: 'Clearest mountain views', note: 'The clearest views of the year from the roof, accessible only to Mahakali and Mahalaxmi guests. Nights are cold and Nepali houses are not centrally heated, so bring warm clothes.'},
     {months: 'Feb — Mar', title: 'Holi and Shivaratri', note: 'Two of the busiest days in the streets around the house. Expect noise during the day.'},
     {months: 'Apr — May', title: 'Rato Machhindranath Jatra', note: "Patan's biggest festival and the longest chariot festival in Nepal. A tall wooden chariot is pulled through the streets over several weeks. Rooms fill early."},
     {months: 'Jun — Aug', title: 'Monsoon', note: 'The low season, and the cheapest time to stay. Rain falls mostly at night. Mountain views are rare.'},
