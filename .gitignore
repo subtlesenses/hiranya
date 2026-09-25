@@ -3,3 +3,9 @@ dist
 .astro
 .env
 .vercel
+
+.env.*
+!.env.example
+!**/.env.example
+
+.sanity/

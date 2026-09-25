@@ -47,7 +47,7 @@ to trigger a new deployment when content changes.
 Room names, descriptions, photos, house information and the WhatsApp contact are
 edited in Sanity. Install the Studio dependencies separately under `studio/`.
 The `npm run seed:sanity` command populates a dataset from seed content and local
-photos; it overwrites matching documents and should only be run intentionally.
+photos; it creates missing documents without overwriting existing content or drafts. Use `-- --rooms-only` for the initial room editor import. See `studio/README.md` for activation.
 
 Photography updates are pending. Confirm any unverified amenities and commercial
 policies with the owner before changing published content. See `SEO.md` for the

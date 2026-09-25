@@ -18,7 +18,7 @@ export const isConfigured = Boolean(projectId)
 
 export function sanityClient(): SanityClient | null {
   if (!isConfigured) return null
-  if (!client) client = createClient({projectId, dataset, apiVersion: '2026-01-01', useCdn: true})
+  if (!client) client = createClient({projectId, dataset, apiVersion: '2026-01-01', useCdn: false})
   return client
 }
 

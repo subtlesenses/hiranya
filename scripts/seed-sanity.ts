@@ -3,13 +3,14 @@
  *
  *   SANITY_PROJECT_ID=xxxx SANITY_WRITE_TOKEN=sk... npx tsx scripts/seed-sanity.ts
  *
- * Idempotent: documents use fixed ids, so running it twice updates rather than
- * duplicates. Photos are uploaded once and re-used by their file name.
+ * Creates missing documents only. Existing documents and drafts are preserved.
+ * Pass --rooms-only to import just the eight existing rooms.
  */
 import {createClient} from '@sanity/client'
 import {createReadStream, existsSync} from 'node:fs'
 import {basename, join} from 'node:path'
 import {seed} from '../src/lib/seed'
+import {roomTypes} from '../src/lib/booking'
 
 const projectId = process.env.SANITY_PROJECT_ID
 const token = process.env.SANITY_WRITE_TOKEN
@@ -68,7 +69,11 @@ async function main() {
   const s = seed.settings
   const docs: any[] = []
 
-  docs.push({
+  const roomsOnly = process.argv.includes('--rooms-only')
+  const existing = new Set(await client.fetch<string[]>('*[]._id'))
+  const missing = (id: string) => !existing.has(id) && !existing.has('drafts.' + id)
+
+  if (!roomsOnly && missing('settings')) docs.push({
     _id: 'settings',
     _type: 'settings',
     name: s.name,
@@ -92,7 +97,8 @@ async function main() {
     bookingNote: s.bookingNote,
   })
 
-  for (const st of seed.storeys) {
+  for (const st of roomsOnly ? [] : seed.storeys) {
+    if (!missing("storey-" + st.order)) continue
     docs.push({
       _id: 'storey-' + st.order, _type: 'storey',
       order: st.order, nepali: st.nepali, roman: st.roman, label: st.label, floorName: st.floorName,
@@ -100,18 +106,20 @@ async function main() {
     })
   }
   for (const r of seed.rooms) {
+    if (!missing("room-" + r.order)) continue
     docs.push({
       _id: 'room-' + r.order, _type: 'room',
+      roomType: roomTypes[r.title],
       title: r.title, slug: {_type: 'slug', current: r.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')},
       order: r.order, summary: r.summary, beds: r.beds, sleeps: r.sleeps, bathroom: r.bathroom,
       photos: await photos(r.photos), active: true,
     })
   }
-  seed.calendar.forEach((c, i) => docs.push({_id: 'calendar-' + (i + 1), _type: 'calendarEntry', order: i + 1, ...c}))
-  seed.quotes.forEach((q, i) => docs.push({_id: 'quote-' + (i + 1), _type: 'quote', order: i + 1, source: 'Booking.com', ...q}))
+  if (!roomsOnly) seed.calendar.forEach((c, i) => docs.push({_id: 'calendar-' + (i + 1), _type: 'calendarEntry', order: i + 1, ...c}))
+  if (!roomsOnly) seed.quotes.forEach((q, i) => docs.push({_id: 'quote-' + (i + 1), _type: 'quote', order: i + 1, source: 'Booking.com', ...q}))
 
   let tx = client.transaction()
-  docs.forEach((d) => (tx = tx.createOrReplace(d)))
+  docs.filter(d => missing(d._id)).forEach((d) => (tx = tx.createIfNotExists(d)))
   await tx.commit()
   console.log(`done: ${docs.length} documents, ${assets.size} photos, dataset "${dataset}"`)
 }

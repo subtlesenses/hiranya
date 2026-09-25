@@ -5,25 +5,30 @@ export const room = defineType({
   name: 'room',
   title: 'Room',
   type: 'document',
+  groups: [
+    {name: 'details', title: 'Room details', default: true},
+    {name: 'photos', group: 'photos', title: 'Photos'},
+    {name: 'visibility', title: 'Visibility & order'},
+  ],
   fields: [
     defineField({
-      name: 'title',
+      name: 'title', group: 'details',
       title: 'Room name',
       type: 'string',
       description: 'What you would call it to a guest. e.g. "Duplex apartment, courtyard".',
       validation: (r) => r.required(),
     }),
-    defineField({name: 'roomType', title: 'Room type', type: 'string', description: 'Guest-facing category, such as Duplex apartment or Twin room with shared bathroom.'}),
-    defineField({name: 'slug', type: 'slug', options: {source: 'title'}, validation: (r) => r.required()}),
+    defineField({name: 'roomType', group: 'details', title: 'Room type', type: 'string', description: 'Guest-facing category, such as Duplex apartment or Twin room with shared bathroom.'}),
+    defineField({name: 'slug', group: 'visibility', type: 'slug', options: {source: 'title'}, validation: (r) => r.required()}),
     defineField({
-      name: 'order',
+      name: 'order', group: 'visibility',
       title: 'Position on the page',
       type: 'number',
       description: 'Low numbers come first in the row of rooms.',
       validation: (r) => r.required().integer().min(1),
     }),
     defineField({
-      name: 'summary',
+      name: 'summary', group: 'details',
       title: 'Description',
       type: 'text',
       rows: 3,
@@ -31,19 +36,19 @@ export const room = defineType({
       validation: (r) => r.required().max(220),
     }),
     defineField({
-      name: 'beds',
+      name: 'beds', group: 'details',
       title: 'Beds',
       type: 'string',
       description: 'e.g. "1 full bed" or "2 twin beds".',
       validation: (r) => r.required(),
     }),
     defineField({
-      name: 'sleeps',
+      name: 'sleeps', group: 'details',
       type: 'number',
       validation: (r) => r.required().integer().min(1).max(6),
     }),
     defineField({
-      name: 'bathroom',
+      name: 'bathroom', group: 'details',
       type: 'string',
       options: {
         list: [
@@ -56,14 +61,15 @@ export const room = defineType({
     }),
     defineField({
       name: 'photos',
-      title: 'Photographs',
+      title: 'Room photographs',
       type: 'array',
       of: [{type: 'photo'}],
+      options: {layout: 'grid'},
       description: 'Add photos for this room only. Drag to reorder: the first is the cover, and all photos appear in this room’s gallery. Add a description to each photo for accessibility.',
       validation: (r) => r.required().min(1),
     }),
     defineField({
-      name: 'active',
+      name: 'active', group: 'visibility',
       title: 'Show on the site',
       type: 'boolean',
       initialValue: true,
