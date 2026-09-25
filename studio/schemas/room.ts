@@ -59,7 +59,7 @@ export const room = defineType({
       title: 'Photographs',
       type: 'array',
       of: [{type: 'photo'}],
-      description: 'The first one is the card. Three or four is plenty.',
+      description: 'Add photos for this room only. Drag to reorder: the first is the cover, and all photos appear in this room’s gallery. Add a description to each photo for accessibility.',
       validation: (r) => r.required().min(1),
     }),
     defineField({

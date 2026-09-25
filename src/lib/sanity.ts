@@ -43,6 +43,13 @@ export function crop(source: any, w: number, h: number): string | null {
   return b.image(source).width(w).height(h).fit('crop').auto('format').quality(72).url()
 }
 
+/** Preserve the photograph's proportions in the room gallery. */
+export function galleryImage(source: any): string | null {
+  const b = urls()
+  if (!b || !source?.asset) return source?._placeholder ?? null
+  return b.image(source).width(1800).fit('max').auto('format').quality(85).url()
+}
+
 export function srcset(source: any, ratio: number, widths = [640, 960, 1400, 1900]): string | null {
   if (!urls() || !source?.asset) return null
   return widths.map((w) => `${crop(source, w, Math.round(w / ratio))} ${w}w`).join(', ')
