@@ -104,7 +104,7 @@ html.js .hero .fade-up{animation:fu .9s ease .55s forwards}
 html:not(.js) .fade-up{opacity:1;transform:none}
 @keyframes fu{to{opacity:1;transform:translateY(0)}}
 
-/* availability strip: 2x2 on phones, one row from 640px */
+/* Date fields need room for a readable value and a full-size calendar icon. */
 .avail{
   display:grid;grid-template-columns:1fr 1fr;
   border:1px solid var(--rule);background:rgba(14,10,8,.72);backdrop-filter:blur(6px);
@@ -124,15 +124,32 @@ html:not(.js) .fade-up{opacity:1;transform:none}
 @media(min-width:640px){.avail input,.avail select{font-size:.86rem}}
 .avail input::-webkit-datetime-edit{padding:0}
 .avail input::-webkit-date-and-time-value{text-align:left;min-height:1.4em}
-.avail input::-webkit-calendar-picker-indicator{width:14px;height:14px;opacity:.55;cursor:pointer;filter:invert(1) sepia(1) saturate(4) hue-rotate(5deg)}
+/* Light date fields keep both the date and native calendar control legible. */
+html :is(.avail,.enquiry-form) input[type="date"]{
+  background:#F5EEDC;color:#211810;-webkit-text-fill-color:#211810;
+  border:2px solid var(--brass);border-radius:4px;
+  min-height:48px;height:auto;padding:10px 8px;
+  font-size:16px;font-weight:500;color-scheme:light;
+}
+html :is(.avail,.enquiry-form) input[type="date"]:hover{border-color:#F5D487}
+html :is(.avail,.enquiry-form) input[type="date"]:focus-visible{
+  outline:3px solid #F5D487;outline-offset:3px;
+}
+html :is(.avail,.enquiry-form) input[type="date"]::-webkit-calendar-picker-indicator{
+  width:22px;height:22px;margin:0;padding:2px;opacity:1;filter:none;cursor:pointer;
+}
+.avail .fld:has(input[type="date"]) label{color:var(--chuna);font-size:.7rem}
 .avail select{
   cursor:pointer;padding-right:22px;
   background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'><path d='M1 1l5 5 5-5' fill='none' stroke='%23D6AA4E' stroke-width='1.2'/></svg>");
   background-repeat:no-repeat;background-position:right 2px center;
 }
 .avail .btn{border:0;border-left:1px solid var(--rule);padding:16px 18px;min-height:56px;grid-column:2}
-@media(min-width:640px){
-  .avail{grid-template-columns:1fr 1fr 1fr auto}
+@media(max-width:420px){
+  .avail .fld:has(input[type="date"]){grid-column:1/-1;border-right:0}
+}
+@media(min-width:900px){
+  .avail{grid-template-columns:minmax(180px,1fr) minmax(180px,1fr) minmax(95px,.6fr) auto}
   .avail .fld{border-bottom:0}
   .avail .fld:nth-of-type(2){border-right:1px solid var(--rule)}
   .avail .btn{grid-column:auto;padding:0 26px}
