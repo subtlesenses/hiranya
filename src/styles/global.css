@@ -35,6 +35,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,summary:focus-visible{o
 }
 .wrap{max-width:1240px;margin:0 auto;padding-left:var(--pad);padding-right:var(--pad)}
 section{position:relative}
+section[id],.step[id]{scroll-margin-top:80px}
 .sec-pad{padding-top:clamp(72px,11vw,150px);padding-bottom:clamp(72px,11vw,150px)}
 
 /* ============ lattice ============ */

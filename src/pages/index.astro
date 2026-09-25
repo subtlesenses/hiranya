@@ -153,7 +153,7 @@ const marquee = [
 
       <div class="climb-steps">
         {storeys.map((s: any, i: number) => (
-          <article class="step" data-step={i} data-cap={s.photo?.caption ?? ''} id={s.label.toLowerCase().replace(/\s+/g, '-')}>
+          <article class="step" data-step={i} data-cap={s.photo?.caption ?? ''} id={['arrive', 'rooms', 'the-host'].includes(s.label.toLowerCase().replace(/\s+/g, '-')) ? `floor-${i + 1}` : s.label.toLowerCase().replace(/\s+/g, '-')}>
             <span class="step-num mono">{String(s.order).padStart(2, '0')}</span>
             <div class="step-nep"><span class="deva">{s.nepali}</span><i>{s.roman}{s.floorName ? ` · ${s.floorName}` : ''}</i></div>
             <h3>{s.label}</h3>
