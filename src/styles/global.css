@@ -125,17 +125,17 @@ html:not(.js) .fade-up{opacity:1;transform:none}
 .avail input::-webkit-datetime-edit{padding:0}
 .avail input::-webkit-date-and-time-value{text-align:left;min-height:1.4em}
 /* Light date fields keep both the date and native calendar control legible. */
-html :is(.avail,.enquiry-form) input[type="date"]{
+html :is(.avail,#enquiry-form) input[type="date"]{
   background:#F5EEDC;color:#211810;-webkit-text-fill-color:#211810;
   border:2px solid var(--brass);border-radius:4px;
   min-height:48px;height:auto;padding:10px 8px;
   font-size:16px;font-weight:500;color-scheme:light;
 }
-html :is(.avail,.enquiry-form) input[type="date"]:hover{border-color:#F5D487}
-html :is(.avail,.enquiry-form) input[type="date"]:focus-visible{
+html :is(.avail,#enquiry-form) input[type="date"]:hover{border-color:#F5D487}
+html :is(.avail,#enquiry-form) input[type="date"]:focus-visible{
   outline:3px solid #F5D487;outline-offset:3px;
 }
-html :is(.avail,.enquiry-form) input[type="date"]::-webkit-calendar-picker-indicator{
+html :is(.avail,#enquiry-form) input[type="date"]::-webkit-calendar-picker-indicator{
   width:22px;height:22px;margin:0;padding:2px;opacity:1;filter:none;cursor:pointer;
 }
 .avail .fld:has(input[type="date"]) label{color:var(--chuna);font-size:.7rem}
