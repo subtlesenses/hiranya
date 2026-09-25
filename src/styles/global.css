@@ -129,7 +129,7 @@ html:not(.js) .fade-up{opacity:1;transform:none}
 html :is(.avail,#enquiry-form) input[type="date"]{
   background:#F5EEDC;color:#211810;-webkit-text-fill-color:#211810;
   border:2px solid var(--brass);border-radius:4px;
-  min-height:48px;height:auto;padding:10px 8px;
+  min-height:44px;height:auto;padding:6px 8px;
   font-size:16px;font-weight:500;color-scheme:light;
 }
 html :is(.avail,#enquiry-form) input[type="date"]:hover{border-color:#F5D487}
@@ -137,7 +137,7 @@ html :is(.avail,#enquiry-form) input[type="date"]:focus-visible{
   outline:3px solid #F5D487;outline-offset:3px;
 }
 html :is(.avail,#enquiry-form) input[type="date"]::-webkit-calendar-picker-indicator{
-  width:22px;height:22px;margin:0;padding:2px;opacity:1;filter:none;cursor:pointer;
+  width:18px;height:18px;margin:0;padding:2px;opacity:1;filter:none;cursor:pointer;
 }
 .avail .fld:has(input[type="date"]) label{color:var(--chuna);font-size:.7rem}
 .avail select{
