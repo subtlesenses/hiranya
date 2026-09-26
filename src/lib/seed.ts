@@ -24,8 +24,7 @@ export const seed = {
       '<p><strong>Patan Durbar Square is 650 metres away, about eight minutes on foot.</strong> Tribhuvan airport is 3.4 km, roughly 25 minutes by taxi.</p>',
     hostPhoto: p('08', 'Hands playing a sarangi beside a lattice window', 'Third floor'),
     hostBodyHtml:
-      '<p>Nakabahil is one of old most quietly extraordinary corners. At its heart stands Lokakriti Mahabihar also known in Newari as Nakabahi, a two-storey red-brick monastery whose history stretches back through the Malla kings, its long facade a familiar landmark to the Vajracharya priests, Shakya artisans, and Dongol families who have called this neighbourhood home for generations.</p>',
-      '<p>Every year at Ghatasthapana, the opening of Dashain, Lokakriti Mahabihar comes alive with the Astamatrika dance, a tradition that belongs to this place alone. True to its Buddhist spirit, no violence or sacrifice marks the occasion; only movement, ritual, and the continuity of a culture that has held its ground for centuries.</p>',
+      '<p></p>',
     cafeName: "Hiranya Cafe",
     cafeHours: 'Breakfast from 8am, kitchen open until noon',
     cafeBodyHtml:
