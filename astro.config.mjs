@@ -9,5 +9,5 @@ export default defineConfig({
       enabled: true,
     },
   }),
-  site: 'https://hiranyainpatan.com',
+  site: 'https://www.hiranyaguesthouse.com',
 })

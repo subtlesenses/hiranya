@@ -10,9 +10,9 @@ and put real numbers against it before spending money on any of it.
 
 Two things matter more than every keyword below, and both are free:
 
-1. **The domain is dead.** `hiranyainpatan.com` no longer resolves. Whatever
-   links, citations and Google memory pointed at it are decaying now. Recover
-   that exact domain before launching on a new one.
+1. **Use the current domain.** The live site is `www.hiranyaguesthouse.com`.
+   Update any old citations that point to `hiranyainpatan.com`, and redirect
+   that domain if it is recovered.
 2. **Google Business Profile.** For a seven-room guest house, the map pack
    outranks the website for almost every local query. Claim the listing, put the
    real photographs on it, and answer reviews. This will send more bookings than
@@ -129,9 +129,10 @@ Only the home page exists today. The rest is the next build.
 - [x] `LodgingBusiness` and `FAQPage` structured data, generated from the same content the page shows
 - [x] Meta title and description editable in Sanity, with character limits enforced
 - [x] Alt text required on every image by the schema, so it cannot be skipped
-- [ ] `sitemap.xml` and `robots.txt` (`@astrojs/sitemap`)
+- [x] `sitemap.xml` and `robots.txt` for the two current pages; update the
+      sitemap when adding pages
 - [ ] Google Business Profile claimed, with the real photographs
-- [ ] Recover `hiranyainpatan.com` and redirect anything old to the matching new page
+- [ ] If `hiranyainpatan.com` is recovered, redirect old URLs to the current domain
 - [ ] Search Console verified, so the guesses above can be replaced with data
 - [ ] Nepali translation, once English is settled
 

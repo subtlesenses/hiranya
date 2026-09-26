@@ -13,6 +13,7 @@ const whatsapp = (settings.whatsapp ?? '').replace(/\D/g, '')
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Booking enquiry — Hiranya Guest House</title>
   <meta name="description" content="Ask about room availability and rates at Hiranya Guest House in Patan on WhatsApp." />
+  <link rel="canonical" href={new URL(Astro.url.pathname, Astro.site).toString()} />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Marcellus&family=IBM+Plex+Mono&display=swap" />
 </head>
 <body>
@@ -25,7 +26,7 @@ const whatsapp = (settings.whatsapp ?? '').replace(/\D/g, '')
       <div><label for="departure">Leave</label><input id="departure" name="checkout" type="date" required /></div>
       <div><label for="adults">Adults</label><input id="adults" name="numadult" type="number" min="1" max="16" value="2" required /></div>
       <div><label for="children">Children</label><input id="children" name="numchild" type="number" min="0" max="16" value="0" required /></div>
-      <div class="wide"><label for="room">Preferred room</label><select id="room" name="room"><option value="">No preference / multiple rooms</option>{rooms.map((r: any) => <option value={roomKey(r)}>{r.title}</option>)}</select></div>
+      <div class="wide"><label for="room">Preferred room</label><select id="room" name="room" aria-describedby="room-capacity"><option value="">No preference / multiple rooms</option>{rooms.map((r: any) => <option value={roomKey(r)} data-sleeps={r.sleeps}>{r.title}</option>)}</select><p id="room-capacity" class="capacity-note" aria-live="polite"></p></div>
       <p class="wide enquiry-note">This is an enquiry, not a confirmed reservation. Review and send the message in WhatsApp; we’ll reply to arrange your booking.</p>
       <button class="btn wide" type="submit"><span>Continue to WhatsApp</span></button>
     </form>}
@@ -43,6 +44,7 @@ const whatsapp = (settings.whatsapp ?? '').replace(/\D/g, '')
       const adults = form.querySelector<HTMLInputElement>('#adults')!
       const children = form.querySelector<HTMLInputElement>('#children')!
       const room = form.querySelector<HTMLSelectElement>('#room')!
+      const roomCapacity = form.querySelector<HTMLElement>('#room-capacity')!
       const query = new URLSearchParams(location.search)
       const iso = (date: Date) => `${date.getFullYear()}-${String(date.getMonth()+1).padStart(2,'0')}-${String(date.getDate()).padStart(2,'0')}`
       const validDate = (value: string | null): value is string => !!value && /^\d{4}-\d{2}-\d{2}$/.test(value) && !isNaN(Date.parse(value)) && new Date(value).toISOString().slice(0,10) === value
@@ -63,12 +65,22 @@ const whatsapp = (settings.whatsapp ?? '').replace(/\D/g, '')
         departure.min = arrival.value || arrival.min
         departure.setCustomValidity(arrival.value && departure.value && departure.value <= arrival.value ? 'Choose a departure after arrival.' : '')
       }
-      form.addEventListener('input', validateDates)
-      form.addEventListener('change', validateDates)
-      validateDates()
+      function validateRoomCapacity() {
+        const capacity = Number(room.selectedOptions[0]?.dataset.sleeps)
+        const partySize = Number(adults.value) + Number(children.value)
+        const message = capacity && partySize > capacity
+          ? `${room.selectedOptions[0].text} sleeps ${capacity} ${capacity === 1 ? 'guest' : 'guests'}. Choose another room or select no preference / multiple rooms.`
+          : ''
+        room.setCustomValidity(message)
+        roomCapacity.textContent = message
+      }
+      function validate() { validateDates(); validateRoomCapacity() }
+      form.addEventListener('input', validate)
+      form.addEventListener('change', validate)
+      validate()
       form.addEventListener('submit', event => {
         event.preventDefault()
-        validateDates()
+        validate()
         if (!form.reportValidity()) return
         const message = ['Hello Hiranya Guest House, I’d like to enquire about a stay.', `Arrival: ${arrival.value}`, `Departure: ${departure.value}`, `Adults: ${adults.value}`, `Children: ${children.value}`, `Preferred room: ${room.selectedOptions[0].text}`, 'Please confirm availability, the total price, and cancellation/payment terms.'].join('\n')
         location.href = `https://wa.me/${form.dataset.whatsapp}?text=${encodeURIComponent(message)}`
@@ -85,6 +97,7 @@ const whatsapp = (settings.whatsapp ?? '').replace(/\D/g, '')
   .enquiry-form{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px 28px;width:100%;margin:32px 0;padding:24px;background:#F5EEDC;color:#211810;border:0;border-radius:8px}
   .enquiry-form label{display:block;font-family:"IBM Plex Mono",monospace;font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:#675542;margin-bottom:4px}.enquiry-form input,.enquiry-form select{width:100%;min-width:0;min-height:40px;background:transparent;color:#211810;border:0;border-bottom:1px solid #21181040;border-radius:0;padding:6px 0;font:16px Arial,sans-serif;color-scheme:light}
   .wide{grid-column:1/-1}.enquiry-note{font-size:.95rem;color:#675542}.enquiry-form .btn{min-height:44px;border:0;border-radius:5px;background:#211810;color:#F5EEDC}.enquiry-form .btn::before{display:none}.enquiry-form .btn:hover{background:#493725}
+  .capacity-note{min-height:1.25em;margin:6px 0 0;font-size:.85rem;color:#8b321e}
   .arrival-details{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px;margin:32px 0;padding:24px 0;border-block:1px solid var(--rule)}
   .arrival-details dt{font-family:"IBM Plex Mono",monospace;font-size:.875rem;color:var(--brass);margin-bottom:8px}.arrival-details dd{margin:0;font-size:1rem;color:var(--chuna-dim)}
   @media(max-width:700px){.arrival-details{grid-template-columns:1fr}.booking-main{padding-top:32px}.booking-nav .mark small{display:none}.enquiry-form{padding:18px;gap:18px}}
