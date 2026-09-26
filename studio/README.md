@@ -15,8 +15,9 @@
    guest sitting area, so it is used for The Host rather than breakfast. Without
    published house settings, the website retains its existing seed content.
 6. Run `npm run deploy` here and choose the Studio hostname when prompted.
-7. In the existing Vercel website project, set `SANITY_PROJECT_ID` and
-   `SANITY_DATASET`. Validate a preview deployment before activating production.
+7. The website uses the Hiranya project and `production` dataset by default.
+   Validate a preview deployment before activating production. Set
+   `SANITY_PROJECT_ID` or `SANITY_DATASET` only for a different project or dataset.
 8. Create a Vercel deploy hook for main, then a Sanity POST webhook for published
    content creates, updates and deletes, excluding draft/version documents.
    Enable only once content is ready. Keep the hook URL private and out of the

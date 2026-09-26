@@ -32,7 +32,9 @@ cp .env.example .env
 npm run dev
 ```
 
-Sanity is optional: without a project configured, the site uses the seed content.
+The build reads published content from the Hiranya Sanity project by default.
+If Sanity is unavailable, the site uses the checked-in seed content. Set
+`SANITY_PROJECT_ID` only when testing against a different project.
 Keep the WhatsApp number current. The owner-confirmed number is +977 984 155 1450.
 
 ```bash
