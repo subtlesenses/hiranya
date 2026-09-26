@@ -11,8 +11,8 @@
    `npm run seed:sanity -- --rooms-only` to import the eight current rooms.
    Existing documents and drafts are preserved. Never commit the write token.
 5. Complete house settings and other content before switching the website to
-   Sanity. The full seed needs all referenced files; `public/photos/12.jpg` is
-   missing and must be supplied or its references corrected first. Without
+   Sanity. The full seed needs all referenced photos. Photo `12.jpg` shows a
+   guest sitting area, so it is used for The Host rather than breakfast. Without
    published house settings, the website retains its existing seed content.
 6. Run `npm run deploy` here and choose the Studio hostname when prompted.
 7. In the existing Vercel website project, set `SANITY_PROJECT_ID` and
