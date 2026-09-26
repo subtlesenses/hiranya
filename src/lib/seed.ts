@@ -34,7 +34,6 @@ export const seed = {
       '<p>Coffee and breakfast from 8am, then we serve homemade momo and fresh juices all day. <strong>Open to non-guests as well as guests.</strong></p>',
     cafePhotos: [
       p('07', 'The café at Hiranya Guest House with brick walls and carved wooden posts', "Hiranya Cafe"),
-      p('12', 'Nepali breakfast served on brass plates', 'Breakfast from 8am'),
     ],
     neighbourhoodPhotos: [
       p('11', 'Nakabahil courtyard in Patan with a stone chaitya', 'Nakabahil, Lokakirti Bihar'),
@@ -75,9 +74,9 @@ export const seed = {
       bodyHtml: '<p>The entrance is off a narrow lane, into a brick courtyard that is open to the sky. The café tables are here.</p><p>Free parking in the lane, and covered bicycle parking. <strong>Patan Durbar Square is 650 metres away, about eight minutes on foot.</strong></p>'},
     {order: 2, nepali: 'मातं', roman: 'mātan', label: 'Rooms', photo: p('04', 'A guest room with original beams and a carved lattice window', 'Double, private bathroom'), floorName: 'first floor', linkLabel: 'See the eight rooms', linkHref: '#rooms',
       bodyHtml: '<p>Eight rooms across three floors. Original beams overhead, lime-plastered walls and terracotta tile underfoot. Every room has towels and toiletries, with hot showers in the private or shared bathrooms.</p><p>Six rooms have a private bathroom. Two duplex rooms have their own internal stair. <strong>Windows are small and set deep in thick walls,</strong> so the rooms stay cool in summer and dim in the afternoon.</p>'},
-    {order: 3, nepali: 'छ्वत', roman: 'chvata', label: 'The Host', photo: p('08', 'Hands playing a sarangi in a dark room', 'Sarangi, third floor'), floorName: 'second floor', linkLabel: 'More about the house', linkHref: '#the-host',
+    {order: 3, nepali: 'छ्वत', roman: 'chvata', label: 'The Host', photo: p('12', 'Common sitting area with floor cushions and timber beams', 'Guest sitting area'), floorName: 'second floor', linkLabel: 'More about the house', linkHref: '#the-host',
       bodyHtml: '<p>Traditionally the shrine floor. Now the common area for guests.</p><p>There is usually music and gatherings here in the evening, and guests are welcome to come up and enjoy. <strong>Ask when booking to find out what is on during your dates.</strong></p>'},
-    {order: 4, nepali: 'बैगः', roman: 'baiga', label: 'Eat', photo: p('12', 'Nepali breakfast on brass plates', 'Breakfast from 8am'), floorName: 'attic', linkLabel: 'About the café', linkHref: '#eat',
+    {order: 4, nepali: 'बैगः', roman: 'baiga', label: 'Eat', photo: p('07', 'Tables inside the brick-walled Hiranya Cafe', 'Hiranya Cafe'), floorName: 'attic', linkLabel: 'About the café', linkHref: '#eat',
       bodyHtml: "<p>In a Newari house the kitchen sits at the top, under the roof. This one still does.</p><p>Guests eat downstairs in the courtyard at <strong>Hiranya Cafe</strong>. Breakfast from 8am, Nepali, Newari and international dishes until noon. Non-guests can walk in.</p>"},
     {order: 5, nepali: 'कौसी', roman: 'kausi', label: 'The Roof', photo: p('03', 'The roof terrace looking over Patan to the Himalaya', 'Roof terrace'), floorName: 'roof', linkLabel: 'Rates and dates', linkHref: '#book',
       bodyHtml: '<p>A brick terrace with tables and chairs, accessible only to guests staying in the Mahakali and Mahalaxmi apartments. It looks out over the tiled roofs of Patan.</p><p><strong>Between October and February you can usually see the Himalaya from here in the morning.</strong> The rest of the year it is hazy by mid-morning.</p>'},
