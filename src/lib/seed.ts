@@ -24,7 +24,7 @@ export const seed = {
       '<p><strong>Patan Durbar Square is 650 metres away, about eight minutes on foot.</strong> Tribhuvan airport is 3.4 km, roughly 25 minutes by taxi.</p>',
     hostPhoto: p('08', 'Hands playing a sarangi beside a lattice window', 'Third floor'),
     hostBodyHtml:
-      '<p>Tucked along the ancient road that winds from Patan Dhoka toward Durbar Square, Nakabahil is one of old most quietly extraordinary corners.</p>' +
+      '<p>Tucked along the ancient road that winds from Patan Dhoka toward Durbar Square, Nakabahil is one of the most quietly extraordinary corners.</p>' +
       '<p>Every year at Ghatasthapana, the opening of Dashain, Lokakriti Mahabihar comes alive with the Astamatrika dance, a tradition that belongs to this place alone.</p>' +
       '<p>True to its Buddhist spirit, no violence or sacrifice marks the occasion; only movement, ritual, and the continuity of a culture that has held its ground for centuries.</p>',
     cafeName: "Hiranya Cafe",
