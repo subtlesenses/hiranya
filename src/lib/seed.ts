@@ -25,8 +25,6 @@ export const seed = {
     hostPhoto: p('08', 'Hands playing a sarangi beside a lattice window', 'Third floor'),
     hostBodyHtml:
       '<p>Tucked along the ancient road that winds from Patan Dhoka toward Durbar Square, Nakabahil is one of old most quietly extraordinary corners.</p>' +
-      '<p>At its heart stands Lokakriti Mahabihar also known in Newari as Naka Bahi, a two-storey red-brick monastery whose history stretches back through the Malla kings,</p>' + 
-      '<p>Its long facade a familiar landmark to the Vajracharya priests, Shakya artisans, and Dongol families who have called this neighbourhood home for generations.</p>' +
       '<p>Every year at Ghatasthapana, the opening of Dashain, Lokakriti Mahabihar comes alive with the Astamatrika dance, a tradition that belongs to this place alone.</p>' +
       '<p>True to its Buddhist spirit, no violence or sacrifice marks the occasion; only movement, ritual, and the continuity of a culture that has held its ground for centuries.</p>',
     cafeName: "Hiranya Cafe",
