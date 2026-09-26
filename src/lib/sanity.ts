@@ -1,15 +1,16 @@
 import {createClient, type SanityClient} from '@sanity/client'
 import imageUrlBuilder from '@sanity/image-url'
 
-const projectId = import.meta.env.SANITY_PROJECT_ID
+// The project ID is public. Use the connected Hiranya project unless a preview
+// explicitly points at another Sanity project.
+const projectId = import.meta.env.SANITY_PROJECT_ID || 's7s7kahm'
 const dataset = import.meta.env.SANITY_DATASET || 'production'
 
 /**
  * Built lazily and only when configured.
  *
- * `createClient` throws the moment it is called without a projectId, so
- * constructing it at module scope would take the whole site down on a fresh
- * clone — exactly the case the seed content exists to cover.
+ * Keep the client lazy so a temporary Sanity outage can still fall back to
+ * the checked-in seed content during a build.
  */
 let client: SanityClient | null = null
 let builder: ReturnType<typeof imageUrlBuilder> | null = null
