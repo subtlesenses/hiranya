@@ -32,7 +32,8 @@ cp .env.example .env
 npm run dev
 ```
 
-The build reads published content from the Hiranya Sanity project by default.
+The homepage and booking page read published content from the Hiranya Sanity
+project on each visit.
 If Sanity is unavailable, the site uses the checked-in seed content. Set
 `SANITY_PROJECT_ID` only when testing against a different project.
 Keep the WhatsApp number current. The owner-confirmed number is +977 984 155 1450.
@@ -41,8 +42,8 @@ Keep the WhatsApp number current. The owner-confirmed number is +977 984 155 145
 npm run build
 ```
 
-Hosting uses Vercel. Pages are built statically. Configure a Sanity publish webhook
-to trigger a new deployment when content changes.
+Hosting uses Vercel. The homepage and booking page render on demand, so a
+published Sanity edit appears on the next visit without a new deployment.
 
 ## Content management
 
@@ -60,7 +61,7 @@ existing search checklist.
 Each room has its own ordered `photos` array. In Sanity Studio, open a Room and
 add images under Photographs, add descriptive alt text, then drag to reorder.
 The first image is the portrait cover; View photos opens only that room's images.
-Publish the room and trigger a Vercel rebuild (or use the Sanity publish webhook).
+Publish the room to make the new gallery available on the website.
 Without Sanity configured, add photos to the matching room in `src/lib/seed.ts`
 and place the corresponding files in `public/photos/`. Do not mix rooms or
 add placeholder duplicates to increase the photo count.

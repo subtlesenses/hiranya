@@ -18,10 +18,9 @@
 7. The website uses the Hiranya project and `production` dataset by default.
    Validate a preview deployment before activating production. Set
    `SANITY_PROJECT_ID` or `SANITY_DATASET` only for a different project or dataset.
-8. Create a Vercel deploy hook for main, then a Sanity POST webhook for published
-   content creates, updates and deletes, excluding draft/version documents.
-   Enable only once content is ready. Keep the hook URL private and out of the
-   Studio client bundle. Do not set any write token on the public website.
+8. The homepage and booking page render on demand on Vercel. Publishing a
+   document makes it available on the next visit, without a deployment hook.
+   Do not set any write token on the public website.
 
 ## Editing rooms
 
@@ -31,9 +30,9 @@ images, write alternative text and drag to reorder; the first image is the
 cover. Visibility & order controls whether the room is shown and where it sits.
 Keep existing room slugs stable so saved links continue to work.
 
-Edits save as drafts. Publish makes them available to the website rebuild; the
-site updates after deployment succeeds. Draft website preview is not configured
-in this phase. Review fields in Studio and inspect the website after deployment.
+Edits save as drafts. Publish makes them available to the website on the next
+visit. Draft website preview is not configured in this phase. Review fields in
+Studio and inspect the website after publishing.
 
 Other sections manage house information, floor descriptions, seasonal notes and
 quotes. Some homepage copy remains in code; this phase focuses on room galleries.

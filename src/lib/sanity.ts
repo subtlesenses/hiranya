@@ -10,7 +10,7 @@ const dataset = import.meta.env.SANITY_DATASET || 'production'
  * Built lazily and only when configured.
  *
  * Keep the client lazy so a temporary Sanity outage can still fall back to
- * the checked-in seed content during a build.
+ * the checked-in seed content when a page is requested.
  */
 let client: SanityClient | null = null
 let builder: ReturnType<typeof imageUrlBuilder> | null = null
@@ -19,7 +19,7 @@ export const isConfigured = Boolean(projectId)
 
 export function sanityClient(): SanityClient | null {
   if (!isConfigured) return null
-  if (!client) client = createClient({projectId, dataset, apiVersion: '2026-01-01', useCdn: false})
+  if (!client) client = createClient({projectId, dataset, apiVersion: '2026-01-01', useCdn: false, timeout: 5000, maxRetries: 0})
   return client
 }
 

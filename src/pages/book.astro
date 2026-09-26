@@ -3,6 +3,9 @@ import '../styles/global.css'
 import {getHomeContent} from '../lib/content'
 import Whatsapp from '../components/Whatsapp.astro'
 import {roomKey} from '../lib/booking'
+
+export const prerender = false
+
 const {settings, rooms} = await getHomeContent()
 const arrivalRules = (settings.houseRules ?? []).filter((rule: any) => ['Check in', 'Check out'].includes(rule.label))
 const whatsapp = (settings.whatsapp ?? '').replace(/\D/g, '')

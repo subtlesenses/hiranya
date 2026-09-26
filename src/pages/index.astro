@@ -6,6 +6,8 @@ import Whatsapp from '../components/Whatsapp.astro'
 import {getHomeContent} from '../lib/content'
 import {bookingUrl, roomKey, roomTypes} from '../lib/booking'
 
+export const prerender = false
+
 const {settings, storeys, rooms: contentRooms, calendar, quotes, whatsOn} = await getHomeContent()
 
 const rooms = contentRooms.map((r: any) => ({...r, roomType: r.roomType || roomTypes[r.title], roomKey: roomKey(r)}))
