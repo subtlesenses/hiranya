@@ -1,5 +1,8 @@
 # Hiranya editor
 
+The Studio uses Sanity v6 and needs Node.js 22.12 or later to build or deploy.
+Install its dependencies with `npm ci` in this folder.
+
 ## Activation
 
 1. Create or select a Sanity project with a public `production` dataset for public
