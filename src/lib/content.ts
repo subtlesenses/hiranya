@@ -32,7 +32,7 @@ export async function getHomeContent() {
       whatsOn: d.whatsOn ?? [],
     }
   } catch (err) {
-    console.error('[sanity] falling back to seed content:', err)
+    console.error('[sanity] falling back to seed content:', err instanceof Error ? err.message : err)
     return {...seed, source: 'seed' as const}
   }
 }
