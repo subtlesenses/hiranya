@@ -20,7 +20,7 @@ export const seed = {
     said: 'An <em>eight-room homestay</em> in a traditional Newari house in old Patan.',
     statementHtml:
       '<p>The house is about ninety years old. It was built after the 1934 A.D. earthquake with a very strong structure.</p>' +
-      '<p>Six rooms have a private bathroom and two share one. A café on the ground floor serves breakfast from eight in the morning and stays open till eight in the evening.</p>' +
+      '<p>Six rooms have a private ensuite bathroom. Kumari and Barahi share one bathroom next door to their rooms. A café on the ground floor serves breakfast from eight in the morning and stays open till eight in the evening.</p>' +
       '<p><strong>Patan Durbar Square is 650 metres away, about eight minutes on foot.</strong> Tribhuvan airport is 3.4 km, roughly 25 minutes by taxi.</p>',
     hostPhoto: p('08', 'Hands playing a sarangi beside a lattice window', 'Third floor'),
     hostBodyHtml:
@@ -44,7 +44,7 @@ export const seed = {
     goodToKnow: [
       {label: 'Getting here', value: 'Tribhuvan airport is 3.4 km, about 25 minutes by taxi. Airport pickup can be arranged on request.'},
       {label: 'Wifi', value: 'Free throughout the house, around 300 Mbps. It is slower on the top floor.'},
-      {label: 'Bathrooms', value: 'Six rooms have their own. Two share one bathroom between them. Hot showers powered by the Sun, towels and toiletries in every room.'},
+      {label: 'Bathrooms', value: 'Six rooms have a private ensuite bathroom. Kumari and Barahi share one bathroom next door to their rooms. Hot showers powered by the Sun, towels and toiletries in every room.'},
       {label: 'Heating', value: 'No central heating, as in most houses in the valley. Extra blankets always, and a room heater on request from November to February.'},
       {label: 'Stairs', value: 'Four floors and no lift. The staircases are steep and narrow, which is normal in a house of this age.'},
       {label: 'Breakfast', value: 'Served in the café from 8am. Nepali or continental.'},
@@ -73,13 +73,13 @@ export const seed = {
     {order: 1, nepali: 'छेली', roman: 'chheli', label: 'Arrive', photo: p('02', 'The brick courtyard of the guest house in early morning light', 'The courtyard'), floorName: 'ground floor', linkLabel: 'Staying in Patan', linkHref: '#patan',
       bodyHtml: '<p>The entrance is off a narrow lane, into a brick courtyard that is open to the sky. The café tables are here.</p><p>Free parking in the lane, and covered bicycle parking. <strong>Patan Durbar Square is 650 metres away, about eight minutes on foot.</strong></p>'},
     {order: 2, nepali: 'मातं', roman: 'mātan', label: 'Rooms', photo: p('04', 'A guest room with original beams and a carved lattice window', 'Double, private bathroom'), floorName: 'first floor', linkLabel: 'See the eight rooms', linkHref: '#rooms',
-      bodyHtml: '<p>Eight rooms across three floors. Original beams overhead, lime-plastered walls and terracotta tile underfoot. Every room has towels and toiletries, with hot showers in the private or shared bathrooms.</p><p>Six rooms have a private bathroom. Two duplex rooms have their own internal stair. <strong>Windows are small and set deep in thick walls,</strong> so the rooms stay cool in summer and dim in the afternoon.</p>'},
+      bodyHtml: '<p>Eight rooms across three floors. Original beams overhead, lime-plastered walls and terracotta tile underfoot. Every room has towels and toiletries, with hot showers in the private or shared bathrooms.</p><p>Six rooms have a private ensuite bathroom. Kumari and Barahi share one bathroom next door to their rooms. The two duplex apartments have private kitchens and their own internal stairs. <strong>Windows are small and set deep in thick walls,</strong> so the rooms stay cool in summer and dim in the afternoon.</p>'},
     {order: 3, nepali: 'छ्वत', roman: 'chvata', label: 'The Host', photo: p('12', 'Common sitting area with floor cushions and timber beams', 'Guest sitting area'), floorName: 'second floor', linkLabel: 'More about the house', linkHref: '#the-host',
       bodyHtml: '<p>Traditionally the shrine floor. Now the common area for guests.</p><p>There is usually music and gatherings here in the evening, and guests are welcome to come up and enjoy. <strong>Ask when booking to find out what is on during your dates.</strong></p>'},
     {order: 4, nepali: 'बैगः', roman: 'baiga', label: 'Eat', photo: p('07', 'Tables inside the brick-walled Hiranya Cafe', 'Hiranya Cafe'), floorName: 'attic', linkLabel: 'About the café', linkHref: '#eat',
       bodyHtml: "<p>In a Newari house the kitchen sits at the top, under the roof. This one still does.</p><p>Guests eat downstairs in the courtyard at <strong>Hiranya Cafe</strong>. Breakfast from 8am, Nepali, Newari and international dishes until noon. Non-guests can walk in.</p>"},
     {order: 5, nepali: 'कौसी', roman: 'kausi', label: 'The Roof', photo: p('03', 'The roof terrace looking over Patan to the Himalaya', 'Roof terrace'), floorName: 'roof', linkLabel: 'Rates and dates', linkHref: '#book',
-      bodyHtml: '<p>A brick terrace with tables and chairs, accessible only to guests staying in the Mahakali and Mahalaxmi apartments. It looks out over the tiled roofs of Patan.</p><p><strong>Between October and February you can usually see the Himalaya from here in the morning.</strong> The rest of the year it is hazy by mid-morning.</p>'},
+      bodyHtml: '<p>A brick terrace with tables and chairs, shared between guests staying in the Mahakali and Mahalaxmi apartments only. It looks out over the tiled roofs of Patan.</p><p><strong>Between October and February you can usually see the Himalaya from here in the morning.</strong> The rest of the year it is hazy by mid-morning.</p>'},
   ],
 
   rooms: [
