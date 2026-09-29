@@ -30,7 +30,7 @@ export const seed = {
     cafeName: "Hiranya Cafe",
     cafeHours: 'Open from 8am to 8pm',
     cafeBodyHtml:
-      '<p>The café is on the ground floor, off the courtyard. Brick walls, carved wooden posts and about eleven tables.</p>' +
+      '<p>The café is on the ground floor, off the courtyard. Brick walls, carved wooden posts and about four tables.</p>' +
       '<p>Coffee, tea & fresh juices at the café. <strong>Open to non-guests as well as guests.</strong></p>',
     cafePhotos: [
       p('07', 'The café at Hiranya Guest House with brick walls and carved wooden posts', "Hiranya Cafe"),
