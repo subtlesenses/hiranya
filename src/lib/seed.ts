@@ -28,10 +28,10 @@ export const seed = {
       '<p>Every year at Ghatasthapana, the opening of Dashain, Lokakriti Mahabihar comes alive with the Astamatrika dance, a tradition that belongs to this place alone.</p>' +
       '<p>True to its Buddhist spirit, no violence or sacrifice marks the occasion; only movement, ritual, and the continuity of a culture that has held its ground for centuries.</p>',
     cafeName: "Hiranya Cafe",
-    cafeHours: 'Breakfast from 8am, kitchen open until noon',
+    cafeHours: 'Open from 8am to 8pm',
     cafeBodyHtml:
       '<p>The café is on the ground floor, off the courtyard. Brick walls, carved wooden posts and about eleven tables.</p>' +
-      '<p>Coffee and breakfast from 8am, then we serve homemade momo and fresh juices all day. <strong>Open to non-guests as well as guests.</strong></p>',
+      '<p>Coffee, tea & fresh juices at the café. <strong>Open to non-guests as well as guests.</strong></p>',
     cafePhotos: [
       p('07', 'The café at Hiranya Guest House with brick walls and carved wooden posts', "Hiranya Cafe"),
     ],
@@ -47,7 +47,7 @@ export const seed = {
       {label: 'Bathrooms', value: 'Six rooms have private ensuite bathrooms. Kumari and Barahi share one bathroom next door to their rooms. Hot showers, towels, body soap and a hair dryer are available.'},
       {label: 'Heating', value: 'No central heating, as in most houses in the valley. Extra blankets always, and a room heater on request from November to February.'},
       {label: 'Stairs', value: 'Four floors and no lift. The staircases are steep and narrow, which is normal in a house of this age.'},
-      {label: 'Breakfast', value: 'Served in the café from 8am. Nepali or continental.'},
+      {label: 'Breakfast', value: 'Currently not available.'},
       {label: 'Paying', value: 'Cash in Nepali rupees/Card/QR payment on arrival. There are ATMs on the way to Durbar Square.'},
       {label: 'Luggage', value: 'Bags can be left before check-in and after check-out at no charge.'},
       {label: 'Laundry', value: 'Available on request, charged by the load.'},
@@ -81,7 +81,7 @@ export const seed = {
     {order: 3, nepali: 'छ्वत', roman: 'chvata', label: 'The Host', photo: p('12', 'Common sitting area with floor cushions and timber beams', 'Guest sitting area'), floorName: 'second floor', linkLabel: 'More about the house', linkHref: '#the-host',
       bodyHtml: '<p>Traditionally the shrine floor. Now the common area for guests.</p><p>There is usually music and gatherings here in the evening, and guests are welcome to come up and enjoy. <strong>Ask when booking to find out what is on during your dates.</strong></p>'},
     {order: 4, nepali: 'बैगः', roman: 'baiga', label: 'Eat', photo: p('07', 'Tables inside the brick-walled Hiranya Cafe', 'Hiranya Cafe'), floorName: 'attic', linkLabel: 'About the café', linkHref: '#eat',
-      bodyHtml: "<p>In a Newari house the kitchen sits at the top, under the roof. This one still does.</p><p>Guests eat downstairs in the courtyard at <strong>Hiranya Cafe</strong>. Breakfast from 8am, Nepali, Newari and international dishes until noon. Non-guests can walk in.</p>"},
+      bodyHtml: "<p>In a Newari house the kitchen sits at the top, under the roof. This one still does in the duplex apartments.</p><p>Guests eat downstairs in the courtyard at <strong>Hiranya Cafe</strong>. Coffee, tea & fresh juices available from 8am to 8pm. Non-guests can walk in.</p>"},
     {order: 5, nepali: 'कौसी', roman: 'kausi', label: 'The Roof', photo: p('03', 'The roof terrace looking over Patan to the Himalaya', 'Roof terrace'), floorName: 'roof', linkLabel: 'Rates and dates', linkHref: '#book',
       bodyHtml: '<p>A brick terrace with tables and chairs, shared between guests staying in the Mahakali and Mahalaxmi apartments only. It looks out over the tiled roofs of Patan.</p><p><strong>Between October and February you can usually see the Himalaya from here in the morning.</strong> The rest of the year it is hazy by mid-morning.</p>'},
   ],
