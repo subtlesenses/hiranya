@@ -44,7 +44,7 @@ export const seed = {
     goodToKnow: [
       {label: 'Getting here', value: 'Tribhuvan airport is 3.4 km, about 25 minutes by taxi. Airport pickup can be arranged on request.'},
       {label: 'Wifi', value: 'Free throughout the house, around 300 Mbps. It is slower on the top floor.'},
-      {label: 'Bathrooms', value: 'Six rooms have a private ensuite bathroom. Kumari and Barahi share one bathroom next door to their rooms. Hot showers powered by the Sun, towels and toiletries in every room.'},
+      {label: 'Bathrooms', value: 'Six rooms have private ensuite bathrooms. Kumari and Barahi share one bathroom next door to their rooms. Hot showers, towels, body soap and a hair dryer are available.'},
       {label: 'Heating', value: 'No central heating, as in most houses in the valley. Extra blankets always, and a room heater on request from November to February.'},
       {label: 'Stairs', value: 'Four floors and no lift. The staircases are steep and narrow, which is normal in a house of this age.'},
       {label: 'Breakfast', value: 'Served in the café from 8am. Nepali or continental.'},
@@ -52,6 +52,9 @@ export const seed = {
       {label: 'Luggage', value: 'Bags can be left before check-in and after check-out at no charge.'},
       {label: 'Laundry', value: 'Available on request, charged by the load.'},
       {label: 'Languages', value: 'English, Nepali, Chinese, Newari and Hindi.'},
+      {label: 'Kitchen access', value: 'Mahalaxmi and Mahakali each have a private kitchen. Barahi, Kumari and Vaishnavi can use the shared guest kitchen. The other three rooms do not include kitchen access.'},
+      {label: 'Room amenities', value: 'Every room has free wifi, bed linen, towels, body soap, a hair dryer, mosquito net, fan, iron, safe and extra blankets. A portable heater is available on request.'},
+      {label: 'Security cameras', value: 'Six CCTV cameras monitor the roadside, entrance, outward views from reception and the 1st- and 2nd-floor staircases, and the 3rd-floor balcony sitting area. None monitor indoor spaces, guest rooms or bathrooms.'},
     ],
     houseRules: [
       {label: 'Check in', value: '1pm to 9pm. Please give an arrival time in advance.'},
@@ -62,6 +65,7 @@ export const seed = {
       {label: 'Pets', value: 'Welcome at no charge. Please ask before you book.'},
       {label: 'Children', value: 'All ages welcome. No cots or extra beds available.'},
       {label: 'Parties', value: 'Not allowed. Minimum check-in age is 18.'},
+      {label: 'Smoking', value: 'Smoking is allowed only in the designated outdoor area, never inside a guest room or indoor shared space.'},
     ],
     address: 'Nakabahil, Lalitpur 44700, Nepal',
     // Digits only, country code first. Confirmed by the owner, 11 Sep 2026.
@@ -83,14 +87,14 @@ export const seed = {
   ],
 
   rooms: [
-    {order: 1, title: 'Mahalaxmi', beds: '1 full bed', sleeps: 2, bathroom: 'private', summary: 'Two floors joined by a steep internal stair. Double bed upstairs, sitting area below. Includes rooftop access.', photos: [p('06', 'Duplex apartment with a narrow timber stair')]},
-    {order: 2, title: 'Mahakali', beds: '1 full bed', sleeps: 2, bathroom: 'private', summary: 'The same layout, facing the courtyard through a carved lattice window. Includes rooftop access.', photos: [p('04', 'Duplex apartment facing the courtyard')]},
-    {order: 3, title: 'Brahmayani', beds: '2 twin beds', sleeps: 2, bathroom: 'private', summary: 'Second floor, under the painted roof beams. Two single beds and a deep-set window.', photos: [p('05', 'Twin room under whitewashed roof beams')]},
-    {order: 4, title: 'Indrayani', beds: '1 full bed', sleeps: 2, bathroom: 'private', summary: 'Original beams, lime-plastered walls, terracotta floor. Double bed, desk and wardrobe.', photos: [p('17', 'Double room with private bathroom')]},
-    {order: 5, title: 'Rudrayani', beds: '1 full bed', sleeps: 2, bathroom: 'private', summary: 'The same size, on the darker side of the house. The quietest room in the afternoon.', photos: [p('13', 'Second double room with private bathroom')]},
-    {order: 6, title: 'Vaishnavi', beds: '1 full bed', sleeps: 1, bathroom: 'private', summary: 'Smaller room. Original beams, lime-plastered walls, terracotta floor. Double bed, desk and wardrobe.', photos: [p('14', 'Third small room with private bathroom')]},
-    {order: 7, title: 'Kumari', beds: '2 twin beds', sleeps: 2, bathroom: 'shared', summary: 'Two single beds. The bathroom is shared with one other room on the same floor.', photos: [p('15', 'Twin room with shared bathroom')]},
-    {order: 8, title: 'Barahi', beds: '1 single bed', sleeps: 1, bathroom: 'shared', summary: 'A single room with one single bed and a shared bathroom.', photos: [p('16', 'Single room with shared bathroom')]},
+    {order: 1, title: 'Mahalaxmi', beds: '1 full bed', sleeps: 2, bathroom: 'private', summary: 'Two floors joined by a steep internal stair. Double bed upstairs, sitting area below, private kitchen and ensuite bathroom. Roof terrace shared with Mahakali only.', photos: [p('06', 'Duplex apartment with a narrow timber stair')]},
+    {order: 2, title: 'Mahakali', beds: '1 full bed', sleeps: 2, bathroom: 'private', summary: 'The same layout, facing the courtyard through a carved lattice window. Private kitchen and ensuite bathroom. Roof terrace shared with Mahalaxmi only.', photos: [p('04', 'Duplex apartment facing the courtyard')]},
+    {order: 3, title: 'Brahmayani', beds: '2 twin beds', sleeps: 2, bathroom: 'private', summary: 'Second floor, under the painted roof beams. Two single beds, a deep-set window and a private ensuite bathroom.', photos: [p('05', 'Twin room under whitewashed roof beams')]},
+    {order: 4, title: 'Indrayani', beds: '1 full bed', sleeps: 2, bathroom: 'private', summary: 'Original beams, lime-plastered walls and terracotta floor. Double bed, desk, wardrobe and private ensuite bathroom.', photos: [p('17', 'Double room with private bathroom')]},
+    {order: 5, title: 'Rudrayani', beds: '1 full bed', sleeps: 2, bathroom: 'private', summary: 'The same size, on the darker side of the house. A double bed and private ensuite bathroom; quietest in the afternoon.', photos: [p('13', 'Second double room with private bathroom')]},
+    {order: 6, title: 'Vaishnavi', beds: '1 full bed', sleeps: 1, bathroom: 'private', summary: 'One double bed for one guest, with a private ensuite bathroom. Original beams, a desk and wardrobe. Guests can use the shared kitchen.', photos: [p('14', 'Third small room with private bathroom')]},
+    {order: 7, title: 'Kumari', beds: '1 single bed, 1 floor mattress', sleeps: 2, bathroom: 'shared', summary: 'One single bed and one floor mattress for two guests. The bathroom next door is shared with Barahi. Guests can use the shared kitchen.', photos: [p('15', 'Room with shared bathroom')]},
+    {order: 8, title: 'Barahi', beds: '1 single bed', sleeps: 1, bathroom: 'shared', summary: 'One single bed for one guest. The bathroom next door is shared with Kumari. Guests can use the shared kitchen.', photos: [p('16', 'Single room with shared bathroom')]},
   ],
 
   calendar: [
