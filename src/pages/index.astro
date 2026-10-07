@@ -4,7 +4,7 @@ import Photo from '../components/Photo.astro'
 import RoomGallery from '../components/RoomGallery.astro'
 import Whatsapp from '../components/Whatsapp.astro'
 import {getHomeContent} from '../lib/content'
-import {bookingUrl, roomKey, roomTypes} from '../lib/booking'
+import {bookingUrl, roomKey, roomTypes, nightlyRate} from '../lib/booking'
 
 export const prerender = false
 
@@ -203,6 +203,7 @@ const marquee = [
               <span>{r.beds.replace('full bed', 'double bed').replace('twin beds', 'single beds')} · {r.sleeps} {r.sleeps === 1 ? 'guest' : 'guests'}</span>
               <span class="bathroom">{r.bathroom === 'shared' ? 'Shared bathroom next door' : 'Private ensuite bathroom'}</span>
             </div>
+            {nightlyRate(r.roomKey) && <p class="room-rate">{nightlyRate(r.roomKey)}</p>}
             <a class="inline-link" data-booking href={`${bookingUrl}?room=${encodeURIComponent(r.roomKey)}`}>Enquire about this room</a>
           </article>
         ))}
@@ -317,12 +318,12 @@ const marquee = [
                 <tr data-room={r.roomKey}>
                   <td><a data-booking href={`${bookingUrl}?room=${encodeURIComponent(r.roomKey)}`}>{r.title}</a><small>{r.roomType}</small></td>
                   <td>{r.sleeps}</td>
-                  <td><span>Ask for rates</span></td>
+                  <td><span>{nightlyRate(r.roomKey) ?? 'Ask for rates'}</span></td>
                 </tr>
               ))}
             </tbody>
           </table>
-          <p class="note-flag rv" style="margin-top:22px">Send your dates and preferred room on WhatsApp. We’ll confirm availability, rates and booking terms with you before your stay is booked.</p>
+          <p class="note-flag rv" style="margin-top:22px">Standard nightly rates in USD, checked 7 October 2026. Your dates, guest count and discounts may change the total. Send your dates and preferred room on WhatsApp to confirm availability, the final price and booking terms.</p>
           <div class="cta-row rv rv-d2">
             <a class="btn" data-booking href={bookingUrl} style="padding:15px 30px"><span>Enquire on WhatsApp</span></a>
             <Whatsapp number={settings.whatsapp} />
