@@ -10,7 +10,7 @@ export const roomRates: Record<string, number> = {
 export function nightlyRate(key: string): string | null {
   const rate = roomRates[key]
   return typeof rate === 'number' && Number.isFinite(rate) && rate > 0
-    ? `US${rate.toLocaleString('en-US', {maximumFractionDigits: 2})} / night`
+    ? 'USD ' + rate.toLocaleString('en-US', {maximumFractionDigits: 2}) + ' / night'
     : null
 }
 
