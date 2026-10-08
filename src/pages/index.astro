@@ -4,13 +4,15 @@ import Photo from '../components/Photo.astro'
 import RoomGallery from '../components/RoomGallery.astro'
 import Whatsapp from '../components/Whatsapp.astro'
 import {getHomeContent} from '../lib/content'
-import {bookingUrl, roomKey, roomTypes, nightlyRate} from '../lib/booking'
+import {bookingUrl, roomKey, roomTypes, nightlyRate, festivalOfferActive, festivalRate} from '../lib/booking'
 
 export const prerender = false
 
 const {settings, storeys, rooms: contentRooms, calendar, quotes, whatsOn} = await getHomeContent()
 
 const rooms = contentRooms.map((r: any) => ({...r, roomType: r.roomType || roomTypes[r.title], roomKey: roomKey(r)}))
+
+const festivalActive = festivalOfferActive()
 
 const jsonLd = {
   '@context': 'https://schema.org',
@@ -203,7 +205,9 @@ const marquee = [
               <span>{r.beds.replace('full bed', 'double bed').replace('twin beds', 'single beds')} · {r.sleeps} {r.sleeps === 1 ? 'guest' : 'guests'}</span>
               <span class="bathroom">{r.bathroom === 'shared' ? 'Shared bathroom next door' : 'Private ensuite bathroom'}</span>
             </div>
-            {nightlyRate(r.roomKey) && <p class="room-rate">{nightlyRate(r.roomKey)}</p>}
+            {nightlyRate(r.roomKey) && <p class="room-rate">
+              {festivalActive ? <><s>{nightlyRate(r.roomKey)}</s><br /><strong>{festivalRate(r.roomKey)}</strong><br /><small>20% festival offer · November 2026 stays</small></> : nightlyRate(r.roomKey)}
+            </p>}
             <a class="inline-link" data-booking href={`${bookingUrl}?room=${encodeURIComponent(r.roomKey)}`}>Enquire about this room</a>
           </article>
         ))}
@@ -311,6 +315,7 @@ const marquee = [
         <div>
           <span class="eyebrow rv" style="margin-bottom:22px">कौसी · enquire direct</span>
           <h2 class="rv" data-lines style="font-size:clamp(2.1rem,5vw,3.6rem);line-height:1.03;margin-bottom:30px">Your stay in Patan</h2>
+          {festivalActive && <div class="rv" style="margin-bottom:22px;padding:18px;border:1px solid var(--brass)"><strong>Dashain &amp; Tihar · 20% off</strong><p style="margin-top:8px">Book direct for stays from 1–30 November 2026. Save 20% on the standard room rate for each November night. Nights outside November use the regular rate. Subject to availability; cannot be combined with other discounts.</p></div>}
           <table class="rates rv rv-d1">
             <thead><tr><th>Room</th><th>Sleeps</th><th>Rates</th></tr></thead>
             <tbody>
@@ -318,7 +323,7 @@ const marquee = [
                 <tr data-room={r.roomKey}>
                   <td><a data-booking href={`${bookingUrl}?room=${encodeURIComponent(r.roomKey)}`}>{r.title}</a><small>{r.roomType}</small></td>
                   <td>{r.sleeps}</td>
-                  <td><span>{nightlyRate(r.roomKey) ?? 'Ask for rates'}</span></td>
+                  <td>{festivalActive && festivalRate(r.roomKey) ? <><s>{nightlyRate(r.roomKey)}</s><br /><strong>{festivalRate(r.roomKey)}</strong><small>November festival rate</small></> : <span>{nightlyRate(r.roomKey) ?? 'Ask for rates'}</span>}</td>
                 </tr>
               ))}
             </tbody>
