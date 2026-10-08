@@ -61,6 +61,6 @@ export const HOME_QUERY = `{
   "storeys": *[_type == "storey"] | order(order asc),
   "rooms": *[_type == "room" && active == true] | order(order asc),
   "calendar": *[_type == "calendarEntry"] | order(order asc),
-  "quotes": *[_type == "quote"] | order(order asc)[0...3],
+  "quotes": *[_type == "quote"] | order(order asc)[0...12],
   "whatsOn": *[_type == "whatsOn" && startDate >= now()] | order(startDate asc)[0...4]
 }`
