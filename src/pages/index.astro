@@ -276,12 +276,13 @@ const marquee = [
 
   <!-- ===== guest words ===== -->
   <section class="sec-pad wrap" style="padding-top:0">
-    <span class="eyebrow rv" style="margin-bottom:26px">What people write afterwards</span>
+    <span class="eyebrow rv" style="margin-bottom:26px">Selected guest reviews</span>
     <div class="quotes">
       {quotes.map((q: any, i: number) => (
         <div class={`q rv${i ? ` rv-d${i}` : ''}`}>
           <blockquote>&ldquo;{q.text}&rdquo;</blockquote>
           <span class="who"><b>{q.name}</b> {q.country}</span>
+          {q.source && <a class="inline-link" href={q.source === 'Airbnb' ? 'https://www.airbnb.com/rooms/23432174' : 'https://www.booking.com/hotel/np/hiranya-guest-house.html#tab-reviews'} target="_blank" rel="noopener noreferrer">Review on {q.source}</a>}
         </div>
       ))}
     </div>
