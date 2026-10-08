@@ -14,6 +14,18 @@ export function nightlyRate(key: string): string | null {
     : null
 }
 
+/** Direct-booking offer for November stay nights; expires at midnight in Nepal. */
+export function festivalOfferActive(now = new Date()): boolean {
+  return now.getTime() < new Date('2026-12-01T00:00:00+05:45').getTime()
+}
+
+export function festivalRate(key: string, now = new Date()): string | null {
+  const rate = roomRates[key]
+  if (!festivalOfferActive(now) || typeof rate !== 'number' || !Number.isFinite(rate) || rate <= 0) return null
+  const discounted = Math.round(rate * 80) / 100
+  return 'USD ' + discounted.toLocaleString('en-US', {maximumFractionDigits: 2}) + ' / night'
+}
+
 export function roomKey(room: {title: string; slug?: {current?: string}}): string {
   return room.slug?.current || room.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')
 }
