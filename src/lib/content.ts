@@ -1,6 +1,17 @@
 import {toHTML} from '@portabletext/to-html'
 import {sanityClient, isConfigured, HOME_QUERY} from './sanity'
 import {seed} from './seed'
+import {emphasisHtml, safeLinkHref, reviewSourceHref} from './security'
+
+/** Apply the same output boundaries to published content and the offline fallback. */
+function prepareContent(content: any) {
+  return {
+    ...content,
+    settings: {...content.settings, said: emphasisHtml(content.settings.said)},
+    storeys: (content.storeys ?? []).map((s: any) => ({...s, linkHref: safeLinkHref(s.linkHref)})),
+    quotes: (content.quotes ?? []).map((q: any) => ({...q, sourceHref: reviewSourceHref(q.source)})),
+  }
+}
 
 /**
  * One call, used by the page. If Sanity is not configured yet — a fresh clone,
@@ -8,15 +19,15 @@ import {seed} from './seed'
  * so the site still builds. Nothing downstream knows which it got.
  */
 export async function getHomeContent() {
-  if (!isConfigured) return {...seed, source: 'seed' as const}
+  if (!isConfigured) return prepareContent({...seed, source: 'seed' as const})
 
   try {
     const d: any = await sanityClient()!.fetch(HOME_QUERY)
     if (!d?.settings) {
       console.warn('[sanity] No published house settings yet; keeping existing site content.')
-      return {...seed, source: 'seed' as const}
+      return prepareContent({...seed, source: 'seed' as const})
     }
-    return {
+    return prepareContent({
       source: 'sanity' as const,
       settings: {
         ...d.settings,
@@ -30,9 +41,9 @@ export async function getHomeContent() {
       calendar: d.calendar ?? [],
       quotes: d.quotes ?? [],
       whatsOn: d.whatsOn ?? [],
-    }
+    })
   } catch (err) {
     console.error('[sanity] falling back to seed content:', err instanceof Error ? err.message : err)
-    return {...seed, source: 'seed' as const}
+    return prepareContent({...seed, source: 'seed' as const})
   }
 }

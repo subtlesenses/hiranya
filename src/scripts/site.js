@@ -1,9 +1,11 @@
+import Lenis from 'lenis';
+
 document.documentElement.classList.add('js');
 var REDUCED = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 /* smooth scroll, native fallback */
 var lenis = null;
-if (window.Lenis && !REDUCED) {
+if (!REDUCED) {
   lenis = new Lenis({lerp: 0.085, smoothWheel: true});
   document.documentElement.classList.add('lenis-on');
   (function raf(t){ lenis.raf(t); requestAnimationFrame(raf); })(0);
@@ -11,7 +13,7 @@ if (window.Lenis && !REDUCED) {
 document.addEventListener('click', function(e){
   var a = e.target.closest('a[href^="#"]'); if (!a) return;
   var id = a.getAttribute('href'); if (id === '#' || id === '#wa') return;
-  var t = document.querySelector(id); if (!t) return;
+  var t = document.getElementById(id.slice(1)); if (!t) return;
   e.preventDefault();
   if (lenis) lenis.scrollTo(t, {offset: -64, duration: 1.5});
   else t.scrollIntoView({behavior: REDUCED ? 'auto' : 'smooth'});
@@ -86,7 +88,7 @@ Array.prototype.forEach.call(document.querySelectorAll('[data-lines]'), function
 (function(){
   var hdr=document.getElementById('hdr'), mob=document.getElementById('mob'), doc=document.documentElement;
   var links=Array.prototype.slice.call(document.querySelectorAll('nav.top a'));
-  var secs=links.map(function(a){return document.querySelector(a.getAttribute('href'))});
+  var secs=links.map(function(a){return document.getElementById(a.getAttribute('href').slice(1))});
   var heroMedia=document.querySelector('.hero-media'), heroIn=document.querySelector('.hero-in');
   var pars=Array.prototype.slice.call(document.querySelectorAll('[data-par]'));
   var tick=false;

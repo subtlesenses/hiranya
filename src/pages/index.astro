@@ -4,6 +4,7 @@ import Photo from '../components/Photo.astro'
 import RoomGallery from '../components/RoomGallery.astro'
 import Whatsapp from '../components/Whatsapp.astro'
 import {getHomeContent} from '../lib/content'
+import {serializeJsonLd} from '../lib/security'
 import {bookingUrl, roomKey, roomTypes, nightlyRate, festivalOfferActive, festivalRate} from '../lib/booking'
 
 export const prerender = false
@@ -26,7 +27,7 @@ const jsonLd = {
       smokingAllowed: false,
       numberOfRooms: rooms.length,
       checkinTime: '13:00',
-      checkoutTime: '12:30',
+      checkoutTime: '12:00',
       ...(settings.whatsapp ? {telephone: '+' + settings.whatsapp} : {}),
     },
     {
@@ -41,18 +42,18 @@ const jsonLd = {
 }
 
 const marquee = [
-  '<b>अष्टमातृका</b> astamatrika — eight mothers',
-  '<b>हिरण्य</b> hiranya — gold',
-  'Nakabahil, Patan',
-  'Homestay',
-  'Eight rooms',
-  '650m to Durbar Square',
-  ...storeys.map((s: any) => `<b>${s.nepali}</b> ${s.roman}`),
+  {emphasis: 'अष्टमातृका', text: 'astamatrika — eight mothers'},
+  {emphasis: 'हिरण्य', text: 'hiranya — gold'},
+  {text: 'Nakabahil, Patan'},
+  {text: 'Homestay'},
+  {text: 'Eight rooms'},
+  {text: '650m to Durbar Square'},
+  ...storeys.map((s: any) => ({emphasis: s.nepali, text: s.roman})),
 ]
 ---
 <Base title={settings.seoTitle ?? settings.name} description={settings.metaDescription ?? settings.strapline}>
 
-<script type="application/ld+json" set:html={JSON.stringify(jsonLd)} is:inline />
+<script type="application/ld+json" set:html={serializeJsonLd(jsonLd)} is:inline />
 
 <header id="hdr">
   <a class="mark" href="#top">Hiranya <small>Nakabahil · Patan</small></a>
@@ -88,7 +89,9 @@ const marquee = [
   </section>
 
   <div class="marq" aria-hidden="true">
-    <div class="marq-in" set:html={[...marquee, ...marquee].map((b) => `<span>${b}</span>`).join('')} />
+    <div class="marq-in">
+      {[...marquee, ...marquee].map((item) => <span>{item.emphasis && <><b>{item.emphasis}</b> </>}{item.text}</span>)}
+    </div>
   </div>
 
   <!-- ===== about ===== -->
@@ -288,7 +291,7 @@ const marquee = [
         <div class="q">
           <blockquote>&ldquo;{q.text}&rdquo;</blockquote>
           <span class="who"><b>{q.name}</b> {q.country}</span>
-          {q.source && <a class="inline-link" href={q.source === 'Airbnb' ? 'https://www.airbnb.com/rooms/23432174' : 'https://www.booking.com/hotel/np/hiranya-guest-house.html#tab-reviews'} target="_blank" rel="noopener noreferrer">Review on {q.source}</a>}
+          {q.sourceHref && <a class="inline-link" href={q.sourceHref} target="_blank" rel="noopener noreferrer">Review on {q.source}</a>}
         </div>
       ))}
     </div>
@@ -421,3 +424,4 @@ const marquee = [
     document.getElementById('reviews-next')?.addEventListener('click', () => moveReviews(1))
   }
 </script>
+

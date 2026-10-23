@@ -16,13 +16,10 @@ const {title, description} = Astro.props
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Marcellus&family=Tiro+Devanagari+Sanskrit:ital@0;1&family=IBM+Plex+Mono:wght@400;500&display=swap" />
-  <script is:inline>document.documentElement.classList.add('js')</script>
 </head>
 <body>
   <slot />
   <SpeedInsights />
-  <!-- Smooth scroll. Pinned; the page works without it. -->
-  <script is:inline src="https://cdn.jsdelivr.net/npm/lenis@1.3.11/dist/lenis.min.js"></script>
   <script>
     // Astro bundles these; they are not served from /src at runtime.
     import '../scripts/site.js'
