@@ -17,6 +17,12 @@ const whatsapp = (settings.whatsapp ?? '').replace(/\D/g, '')
   <title>Booking enquiry — Hiranya Guest House</title>
   <meta name="description" content="Ask about room availability and rates at Hiranya Guest House in Patan on WhatsApp." />
   <link rel="canonical" href={new URL(Astro.url.pathname, Astro.site).toString()} />
+  <meta name="theme-color" content="#0E0A08" />
+  <link rel="icon" href="/favicon.ico" sizes="any" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <link rel="manifest" href="/site.webmanifest" />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Marcellus&family=IBM+Plex+Mono&display=swap" />
 </head>
 <body>
@@ -106,3 +112,4 @@ const whatsapp = (settings.whatsapp ?? '').replace(/\D/g, '')
   @media(max-width:700px){.arrival-details{grid-template-columns:1fr}.booking-main{padding-top:32px}.booking-nav .mark small{display:none}.enquiry-form{padding:18px;gap:18px}}
   @media(max-width:420px){.enquiry-form{grid-template-columns:1fr}}
 </style>
+
